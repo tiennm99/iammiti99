@@ -1,4 +1,4 @@
-# links
+# iammiti99
 
 Personal link-in-bio page — a self-hosted Linktree alternative for my own use.
 
