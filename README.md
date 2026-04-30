@@ -24,13 +24,16 @@ npm run serve      # python http.server on :8080
 `build.js` reads `GITHUB_TOKEN` if set; without it, GitHub API calls are
 unauthenticated (60 req/h, plenty for a few links).
 
-## One-time GitHub Pages setup
+## Deployment
 
-1. Settings → Pages → Source: **GitHub Actions**.
-2. (Optional) Settings → Pages → Custom domain: enter your domain and add
-   a `src/CNAME` file with the same value (`build.js` copies it through).
+Every push to `main` (plus the daily 00:00 UTC cron) deploys to GitHub
+Pages. The workflow self-enables Pages on first run via
+`actions/configure-pages@v5` with `enablement: true`, so no manual UI
+setup is required for fresh forks (provided **Settings → Actions →
+General → Workflow permissions** is set to "Read and write").
 
-After that, every push to `main` (and the daily 00:00 UTC cron) deploys.
+(Optional) Custom domain: drop a `src/CNAME` file containing your apex
+domain — `build.js` copies it through to the deployed site.
 
 ## Project layout
 
