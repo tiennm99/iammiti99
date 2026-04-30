@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="${site.lang}">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>${site.title}</title>
+    <meta name="description" content="${site.description}" />
+    <meta name="author" content="${profile.name}" />
+    <meta name="last-modified" content="${last_modified}" />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${site.title}" />
+    <meta property="og:description" content="${site.description}" />
+    <meta property="og:url" content="${site.url}" />
+    <meta property="og:image" content="${profile.avatar}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${site.title}" />
+    <meta name="twitter:description" content="${site.description}" />
+    <meta name="twitter:image" content="${profile.avatar}" />
+
+    <!-- Theme color (light + dark) -->
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="${site.theme_color_light}"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="${site.theme_color_dark}"
+    />
+
+    <!-- Apple PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="${site.title}" />
+
+    <!-- Font Awesome 6 (CDN). TODO: add SRI integrity hash. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <main class="card">
+      <img
+        class="avatar"
+        src="${profile.avatar}"
+        alt="${profile.name} avatar"
+        width="120"
+        height="120"
+        loading="eager"
+        decoding="async"
+      />
+      <h1 class="name">${profile.name}</h1>
+      <p class="tagline">${profile.tagline}</p>
+
+      <ul class="links">
+${links_html}
+      </ul>
+
+      <nav class="socials" aria-label="Social profiles">
+${socials_html}
+      </nav>
+
+      <footer class="footer">
+        <p>${footer.text}</p>
+        <small class="copyright">${footer.copyright}</small>
+      </footer>
+    </main>
+  </body>
+</html>
