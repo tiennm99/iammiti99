@@ -1,0 +1,27 @@
+{{- $name := site.Params.name | default site.Title -}}
+{{- $tagline := site.Params.tagline | default "" -}}
+{{- $description := site.Params.bio | default $tagline | default site.Params.description -}}
+{{- $avatar := site.Params.avatar -}}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<title>{{ $name }}{{ with $tagline }} — {{ . }}{{ end }}</title>
+{{- with $description }}
+<meta name="description" content="{{ . }}" />
+{{- end }}
+
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="{{ $name }}" />
+{{- with $description }}
+<meta property="og:description" content="{{ . }}" />
+{{- end }}
+{{- with $avatar }}
+<meta property="og:image" content="{{ . | absURL }}" />
+{{- end }}
+<meta name="twitter:card" content="summary" />
+
+<link rel="icon" href="{{ site.Params.favicon | default `/favicon.ico` }}" />
+<link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
+{{- if site.Params.themeToggle }}
+<script defer src="{{ `js/theme-toggle.js` | relURL }}"></script>
+{{- end }}

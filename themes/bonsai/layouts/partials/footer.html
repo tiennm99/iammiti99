@@ -1,0 +1,9 @@
+{{- if site.Params.footer | default true -}}
+<footer class="bonsai-footer">
+  {{- with site.Params.footerText -}}
+    <p>{{ . | safeHTML }}</p>
+  {{- else -}}
+    <p>© {{ now.Year }} {{ site.Params.name | default site.Title }}</p>
+  {{- end -}}
+</footer>
+{{- end -}}

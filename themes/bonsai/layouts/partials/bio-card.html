@@ -1,0 +1,29 @@
+{{- $name := site.Params.name | default site.Title -}}
+{{- $tagline := site.Params.tagline -}}
+{{- $bio := site.Params.bio -}}
+{{- $avatar := site.Params.avatar -}}
+{{- $links := site.Params.links -}}
+
+<article class="bio">
+  {{- if $avatar }}
+  <img class="bio__avatar" src="{{ $avatar | relURL }}" alt="{{ $name }}" loading="eager" />
+  {{- end }}
+
+  <h1 class="bio__name">{{ $name }}</h1>
+
+  {{- with $tagline }}
+  <p class="bio__tagline">{{ . }}</p>
+  {{- end }}
+
+  {{- with $bio }}
+  <p class="bio__text">{{ . | markdownify }}</p>
+  {{- end }}
+
+  {{- if $links }}
+  <nav class="bio__links" aria-label="Links">
+    {{- range $links }}
+      {{- partial "link-button.html" . -}}
+    {{- end }}
+  </nav>
+  {{- end }}
+</article>
