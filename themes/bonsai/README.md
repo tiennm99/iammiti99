@@ -79,6 +79,63 @@ theme = "bonsai"
 
 See `exampleSite/` for a full reference.
 
+## Available Icons
+
+<details>
+<summary>Brand / Social (25)</summary>
+
+| Name | Source |
+|------|--------|
+| `github` | Simple Icons |
+| `gitlab` | Simple Icons |
+| `mastodon` | Simple Icons |
+| `bsky` | Simple Icons |
+| `x` | Simple Icons |
+| `threads` | Simple Icons |
+| `linkedin` | Simple Icons |
+| `instagram` | Simple Icons |
+| `facebook` | Simple Icons |
+| `tiktok` | Simple Icons |
+| `youtube` | Simple Icons |
+| `twitch` | Simple Icons |
+| `discord` | Simple Icons |
+| `telegram` | Simple Icons |
+| `signal` | Simple Icons |
+| `whatsapp` | Simple Icons |
+| `reddit` | Simple Icons |
+| `medium` | Simple Icons |
+| `devto` | Simple Icons |
+| `substack` | Simple Icons |
+| `hashnode` | Simple Icons |
+| `kofi` | Simple Icons |
+| `patreon` | Simple Icons |
+| `buymeacoffee` | Simple Icons |
+| `paypal` | Simple Icons |
+
+</details>
+
+<details>
+<summary>UI / Utility (10)</summary>
+
+| Name | Source |
+|------|--------|
+| `mail` | Lucide |
+| `globe` | Lucide |
+| `link` | Lucide |
+| `rss` | Lucide |
+| `calendar` | Lucide |
+| `phone` | Lucide |
+| `mappin` | Lucide |
+| `filetext` | Lucide |
+| `extlink` | Lucide |
+| `share` | Lucide |
+
+</details>
+
+Icons are vendored at build time — no CDN fetch at runtime. To refresh or add icons, edit `scripts/sync-icons.sh` and `data/icons.yaml`, then re-run the script.
+
+See `exampleSite/content/icons/` for a rendered gallery (run locally).
+
 ## Development
 
 ```bash

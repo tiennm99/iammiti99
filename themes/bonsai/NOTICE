@@ -1,0 +1,22 @@
+Bonsai Hugo Theme — Third-Party Notices
+========================================
+
+This theme vendors SVG icons from two open-source projects:
+
+1. Simple Icons (brand icons)
+   Source:  https://simpleicons.org / https://github.com/simple-icons/simple-icons
+   Version: 13.0.0
+   License: CC0 1.0 Universal (Public Domain Dedication)
+             https://creativecommons.org/publicdomain/zero/1.0/
+   Files:   assets/icons/brand/*.svg
+
+2. Lucide (UI icons)
+   Source:  https://lucide.dev / https://github.com/lucide-icons/lucide
+   Version: 0.460.0 (lucide-static)
+   License: ISC License
+             Copyright (c) 2020, Lucide Contributors
+             Permission to use, copy, modify, and/or distribute this software
+             for any purpose with or without fee is hereby granted, provided
+             that the above copyright notice and this permission notice appear
+             in all copies.
+   Files:   assets/icons/ui/*.svg

@@ -1,0 +1,44 @@
+# Icon manifest — maps public icon name → {family, slug}
+# family: brand  → assets/icons/brand/<slug>.svg (Simple Icons v13, CC0 1.0)
+# family: ui     → assets/icons/ui/<slug>.svg    (Lucide Static v0.460, ISC)
+#
+# To add an icon: run scripts/sync-icons.sh then add an entry here.
+
+# --- Brand / Social ---
+github:       { family: brand, slug: github }
+gitlab:       { family: brand, slug: gitlab }
+mastodon:     { family: brand, slug: mastodon }
+bsky:         { family: brand, slug: bluesky }
+x:            { family: brand, slug: x }
+threads:      { family: brand, slug: threads }
+linkedin:     { family: brand, slug: linkedin }
+instagram:    { family: brand, slug: instagram }
+facebook:     { family: brand, slug: facebook }
+tiktok:       { family: brand, slug: tiktok }
+youtube:      { family: brand, slug: youtube }
+twitch:       { family: brand, slug: twitch }
+discord:      { family: brand, slug: discord }
+telegram:     { family: brand, slug: telegram }
+signal:       { family: brand, slug: signal }
+whatsapp:     { family: brand, slug: whatsapp }
+reddit:       { family: brand, slug: reddit }
+medium:       { family: brand, slug: medium }
+devto:        { family: brand, slug: devdotto }
+substack:     { family: brand, slug: substack }
+hashnode:     { family: brand, slug: hashnode }
+kofi:         { family: brand, slug: kofi }
+patreon:      { family: brand, slug: patreon }
+buymeacoffee: { family: brand, slug: buymeacoffee }
+paypal:       { family: brand, slug: paypal }
+
+# --- UI / Utility ---
+mail:         { family: ui, slug: mail }
+globe:        { family: ui, slug: globe }
+link:         { family: ui, slug: link }
+rss:          { family: ui, slug: rss }
+calendar:     { family: ui, slug: calendar }
+phone:        { family: ui, slug: phone }
+mappin:       { family: ui, slug: map-pin }
+filetext:     { family: ui, slug: file-text }
+extlink:      { family: ui, slug: external-link }
+share:        { family: ui, slug: share-2 }
