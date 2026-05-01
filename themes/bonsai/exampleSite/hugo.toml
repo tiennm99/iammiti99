@@ -1,0 +1,32 @@
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "Tien Nguyen"
+theme = "bonsai"
+
+[params]
+  name = "Tien Nguyen"
+  tagline = "Software engineer · tending small things with care"
+  bio = "Building tools, writing code, growing a quiet corner of the internet."
+  avatar = "/images/avatar.jpg"
+  themeToggle = false
+  footerText = "© 2026 · made with bonsai"
+
+  [[params.links]]
+    title = "GitHub"
+    url = "https://github.com/tiennm99"
+    icon = "github"
+
+  [[params.links]]
+    title = "Personal site"
+    url = "https://example.com"
+    icon = "globe"
+
+  [[params.links]]
+    title = "LinkedIn"
+    url = "https://linkedin.com/in/tiennm99"
+    icon = "linkedin"
+
+  [[params.links]]
+    title = "Email me"
+    url = "mailto:tiennm99@outlook.com"
+    icon = "mail"

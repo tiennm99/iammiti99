@@ -1,0 +1,12 @@
+{{- $title := .title -}}
+{{- $url := .url -}}
+{{- $icon := .icon -}}
+{{- $external := strings.HasPrefix $url "http" -}}
+<a class="link"
+   href="{{ $url }}"
+   {{- if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+  {{- with $icon }}
+  <span class="link__icon" aria-hidden="true">{{ partial "icon.html" . }}</span>
+  {{- end }}
+  <span class="link__title">{{ $title }}</span>
+</a>
