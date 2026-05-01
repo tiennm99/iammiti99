@@ -33,3 +33,13 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
     title = "Email me"
     url = "mailto:tiennm99@outlook.com"
     icon = "mail"
+
+  [[params.links]]
+    title = "Mastodon"
+    url = "https://mastodon.social/@tiennm99"
+    icon = "mastodon"
+
+  [[params.links]]
+    title = "Bluesky"
+    url = "https://bsky.app/profile/tiennm99.bsky.social"
+    icon = "bsky"
