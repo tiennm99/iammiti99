@@ -20,8 +20,8 @@
 {{- end }}
 <meta name="twitter:card" content="summary" />
 
-<link rel="icon" href="{{ (site.Params.favicon | default `/favicon.ico`) | absURL }}" />
-<link rel="stylesheet" href="{{ `css/bonsai.css` | absURL }}" />
+<link rel="icon" href="{{ (site.Params.favicon | default `favicon.ico`) | strings.TrimPrefix "/" | relURL }}" />
+<link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
 {{- if site.Params.themeToggle }}
-<script defer src="{{ `js/theme-toggle.js` | absURL }}"></script>
+<script defer src="{{ `js/theme-toggle.js` | relURL }}"></script>
 {{- end }}
