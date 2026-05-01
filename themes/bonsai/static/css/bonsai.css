@@ -148,6 +148,19 @@ body {
   color: var(--bonsai-accent);
 }
 
+.link__icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: currentColor;
+}
+
+/* Lucide UI icons use stroke, not fill */
+.link__icon svg[stroke="currentColor"],
+.link__icon svg.lucide {
+  fill: none;
+}
+
 .link__title { line-height: 1; }
 
 .bonsai-footer {
