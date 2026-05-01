@@ -10,7 +10,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   name = "Tien Nguyen"
   tagline = "Software engineer · tending small things with care"
   bio = "Building tools, writing code, growing a quiet corner of the internet."
-  avatar = "/images/avatar.jpg"
+  avatar = "/images/avatar.svg"
   themeToggle = false
   footerText = "© 2026 · made with bonsai"
 
