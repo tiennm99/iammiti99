@@ -1,0 +1,40 @@
+name: build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Hugo Extended
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.0'
+          extended: true
+
+      - name: Build exampleSite
+        working-directory: exampleSite
+        run: hugo --gc --minify --themesDir ../.. --printPathWarnings
+
+      - name: Upload built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: exampleSite-public
+          path: exampleSite/public
+          retention-days: 7
