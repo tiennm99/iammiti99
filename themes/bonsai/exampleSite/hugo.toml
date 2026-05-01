@@ -3,6 +3,9 @@ languageCode = "en-us"
 title = "Tien Nguyen"
 theme = "bonsai"
 
+# Bonsai is a single-page bio theme — no need for taxonomies, sitemaps, or RSS.
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
 [params]
   name = "Tien Nguyen"
   tagline = "Software engineer · tending small things with care"
