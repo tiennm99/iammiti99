@@ -2,6 +2,21 @@
 {{- $tagline := site.Params.tagline | default "" -}}
 {{- $description := site.Params.bio | default $tagline | default site.Params.description -}}
 {{- $avatar := site.Params.avatar -}}
+{{- /* OG image resolution:
+       - params.ogImage = false → emit nothing.
+       - params.ogImageUrl set → use it (1200×630 expected → summary_large_image).
+       - else fall back to params.avatar (square → summary card).            */ -}}
+{{- $ogImageEnabled := site.Params.ogImage | default true -}}
+{{- $ogImageUrl := "" -}}
+{{- $twitterCard := "summary" -}}
+{{- if $ogImageEnabled -}}
+  {{- if site.Params.ogImageUrl -}}
+    {{- $ogImageUrl = site.Params.ogImageUrl | absURL -}}
+    {{- $twitterCard = "summary_large_image" -}}
+  {{- else if $avatar -}}
+    {{- $ogImageUrl = $avatar | absURL -}}
+  {{- end -}}
+{{- end -}}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
@@ -15,10 +30,11 @@
 {{- with $description }}
 <meta property="og:description" content="{{ . }}" />
 {{- end }}
-{{- with $avatar }}
-<meta property="og:image" content="{{ . | absURL }}" />
+{{- with $ogImageUrl }}
+<meta property="og:image" content="{{ . }}" />
+<meta name="twitter:image" content="{{ . }}" />
 {{- end }}
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="{{ $twitterCard }}" />
 
 {{ partial "schema-person.html" . }}
 
