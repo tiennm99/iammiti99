@@ -9,7 +9,5 @@ You may obtain a copy of the License at
 
 ---
 
-This project is inspired by linkyee (https://github.com/ZhgChgLi/linkyee, MIT).
-The architectural idea (config-driven personal link page deployed via GitHub
-Pages, with build-time decoration of GitHub repo links) is borrowed; no source
-code is copied.
+This site is built with the bonsai Hugo theme
+(https://github.com/tiennm99/bonsai, Apache-2.0).
