@@ -1,0 +1,13 @@
+# Bonsai theme — Vietnamese strings.
+
+[nav_links_label]
+other = "Liên kết"
+
+[theme_toggle_label]
+other = "Chuyển giao diện sáng / tối"
+
+[theme_toggle_title]
+other = "Đổi giao diện"
+
+[footer_default]
+other = "© {{ .year }} {{ .name }}"

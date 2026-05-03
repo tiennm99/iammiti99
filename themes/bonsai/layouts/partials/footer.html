@@ -3,7 +3,8 @@
   {{- with site.Params.footerText -}}
     <p>{{ . | safeHTML }}</p>
   {{- else -}}
-    <p>© {{ now.Year }} {{ site.Params.name | default site.Title }}</p>
+    {{- $ctx := dict "year" now.Year "name" (site.Params.name | default site.Title) -}}
+    <p>{{ i18n "footer_default" $ctx | default (printf "© %d %s" now.Year (site.Params.name | default site.Title)) | safeHTML }}</p>
   {{- end -}}
   {{- if site.Params.themeToggle -}}
     {{ partial "theme-toggle-button.html" . }}

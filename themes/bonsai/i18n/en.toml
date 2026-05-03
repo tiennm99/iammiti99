@@ -1,0 +1,14 @@
+# Bonsai theme — English strings.
+# Override per language by adding e.g. i18n/vi.toml; missing keys fall back to en.
+
+[nav_links_label]
+other = "Links"
+
+[theme_toggle_label]
+other = "Toggle light and dark theme"
+
+[theme_toggle_title]
+other = "Toggle theme"
+
+[footer_default]
+other = "© {{ .year }} {{ .name }}"
