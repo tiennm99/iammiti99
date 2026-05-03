@@ -5,7 +5,24 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ## [Unreleased]
 
 ### Added
-- (placeholder for v0.2 — layout variants, color presets, schema.org Person markup)
+- (placeholder for v0.3 — layout variants, i18n support)
+
+## [0.2.0] — 2026-05-03
+
+Polish & SEO release. All additions are strictly opt-in; v0.1 sites upgrade with no config edits.
+
+### Added
+- **Color theme presets** — four named palettes (`bonsai` default, `sakura`, `sumi`, `koi`); select via new `params.colorTheme`. Each has light + dark variants. Gallery at `/themes/`.
+- **schema.org Person markup** — JSON-LD `ProfilePage > Person` injected in `<head>`. Built from existing params + optional `params.jobTitle`, `params.location`, `params.email`. Suppressible via `params.schema = false`. `mailto:` and `tel:` links excluded from `sameAs`.
+- **Theme toggle UI button** — sun/moon button rendered in footer when `params.themeToggle = true`. Sun shown in dark mode, moon in light (button shows target). `aria-pressed` reflects state. Existing localStorage persistence preserved.
+- **Avatar initials fallback** — when `params.avatar` is unset, theme renders an inline SVG circle with auto-derived initials (first letter of up to 2 words from `params.name`). Override with `params.avatarInitials`. Background overrideable via `params.avatarBg`.
+
+### Changed
+- `static/css/bonsai.css` restructured — color vars now scoped per `[data-bonsai-theme]`; layout vars (radius/gap/pad/fonts) stay in `:root`.
+- `layouts/_default/baseof.html` emits `data-bonsai-theme` attribute on `<html>`.
+- `layouts/partials/bio-card.html` delegates avatar rendering to new `partials/avatar.html`.
+- `static/js/theme-toggle.js` syncs `aria-pressed` on first paint and on click.
+- `exampleSite/hugo.toml` switches demo to `colorTheme = "sakura"` to showcase a non-default palette.
 
 ## [0.1.0] — 2026-05-01
 
