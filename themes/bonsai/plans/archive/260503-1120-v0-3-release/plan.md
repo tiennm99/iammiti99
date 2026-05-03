@@ -1,8 +1,12 @@
 ---
 title: "v0.3 release — layout variants, OG image generation, i18n"
-status: pending
+status: completed
 created: 2026-05-03
-target: 2026-05-04
+completed: 2026-05-03
+shipped_via: "PR #6 (https://github.com/tiennm99/bonsai/pull/6)"
+journal: "docs/journals/2026-05-03-v0-3-release.md"
+deferred_to_v0_4: ["OG image auto-generation"]
+release_admin_pending: ["screenshot regeneration", "v0.3.0 git tag"]
 ---
 
 # v0.3 Release
