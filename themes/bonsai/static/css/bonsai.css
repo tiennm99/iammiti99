@@ -221,6 +221,40 @@ body {
   margin-top: 1.5rem;
 }
 
+/* === layout variants ===
+ * All variant rules scope under .bio__links--{name} to avoid CSS specificity
+ * collisions with the default .link rules (see v0.2 journal for the lesson).
+ */
+.bio__links--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 480px) {
+  .bio__links--grid { grid-template-columns: 1fr; }
+}
+
+.bio__links--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bio__links--inline .link {
+  padding: .75rem;
+  gap: 0;
+}
+/* Visually hide the title in inline mode but keep it for screen readers. */
+.bio__links--inline .link__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .link {
   display: flex;
   align-items: center;
@@ -374,6 +408,46 @@ body {
   background: var(--bonsai-accent);
   color: var(--bonsai-bg);
   border-color: var(--bonsai-accent);
+}
+
+/* ============================================================
+   Variants gallery (exampleSite/variants/) — 3 sample bio cards
+   ============================================================ */
+
+.variants-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 36rem;
+  margin: 2rem auto;
+}
+
+.variants-gallery__card {
+  background: var(--bonsai-surface);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  padding: 1.5rem;
+}
+
+.variants-gallery__name {
+  font-family: var(--bonsai-font-display);
+  font-size: 1.1rem;
+  margin: 0 0 .25rem;
+  color: var(--bonsai-text);
+}
+
+.variants-gallery__desc {
+  color: var(--bonsai-muted);
+  font-size: .85rem;
+  margin: 0 0 .5rem;
+}
+
+.variants-gallery__code {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: ui-monospace, monospace;
+  font-size: .75rem;
+  color: var(--bonsai-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

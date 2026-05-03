@@ -13,9 +13,11 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   # avatar omitted intentionally so the demo showcases the initials fallback
   # (the SVG circle uses the active palette's accent color)
   colorTheme = "sakura"      # try "bonsai" (default), "sakura", "sumi", "koi"
+  layout = "grid"            # try "stack" (default), "grid", "inline"
   themeToggle = true
   jobTitle = "Software Engineer"
   footerText = "© 2026 · made with bonsai"
+  # ogImageUrl = "/og.png"   # optional 1200×630 image for social previews
 
   [[params.links]]
     title = "GitHub"
