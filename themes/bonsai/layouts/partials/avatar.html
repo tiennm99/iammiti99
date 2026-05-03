@@ -1,0 +1,30 @@
+{{- /* Render bio avatar.
+       If params.avatar is set, render <img>.
+       Otherwise, render an inline SVG circle with initials in accent color.
+       Initials override: params.avatarInitials.
+       Background override: params.avatarBg (defaults to --bonsai-accent). */ -}}
+{{- $name := site.Params.name | default site.Title -}}
+{{- $avatar := site.Params.avatar -}}
+
+{{- if $avatar -}}
+  <img class="bio__avatar" src="{{ $avatar | strings.TrimPrefix "/" | relURL }}" alt="{{ $name }}" loading="eager" />
+{{- else -}}
+  {{- $initials := site.Params.avatarInitials -}}
+  {{- if not $initials -}}
+    {{- $words := split (strings.TrimSpace $name) " " -}}
+    {{- $first := "" -}}
+    {{- $second := "" -}}
+    {{- with index $words 0 -}}{{- $first = substr . 0 1 -}}{{- end -}}
+    {{- if gt (len $words) 1 -}}{{- $second = substr (index $words 1) 0 1 -}}{{- end -}}
+    {{- $initials = upper (printf "%s%s" $first $second) -}}
+    {{- if not $initials -}}{{- $initials = "?" -}}{{- end -}}
+  {{- end -}}
+  {{- $bg := site.Params.avatarBg | default "var(--bonsai-accent)" -}}
+  <svg class="bio__avatar bio__avatar--initials" viewBox="0 0 112 112" width="112" height="112" role="img" aria-label="{{ $name }}">
+    <circle cx="56" cy="56" r="56" fill="{{ $bg }}"/>
+    <text x="56" y="74" text-anchor="middle"
+          font-family="ui-serif, Georgia, serif"
+          font-size="56" font-weight="600"
+          fill="var(--bonsai-bg)">{{ $initials }}</text>
+  </svg>
+{{- end -}}

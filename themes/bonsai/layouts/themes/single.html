@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <article style="text-align:center;">
+    <h1 style="font-family:var(--bonsai-font-display);">Color themes</h1>
+    <p style="color:var(--bonsai-muted);max-width:32rem;margin:0 auto 2rem;">
+      Set <code>colorTheme = "bonsai"</code> in your <code>hugo.toml</code> <code>[params]</code> block. Each palette has light + dark variants.
+    </p>
+  </article>
+
+  {{- $palettes := slice
+    (dict "name" "bonsai"  "label" "Bonsai (washi + vermilion)" "accent" "#8b3a2b")
+    (dict "name" "sakura"  "label" "Sakura (cherry blossom)"    "accent" "#d4456a")
+    (dict "name" "sumi"    "label" "Sumi (monochrome ink)"      "accent" "#1a1a1a")
+    (dict "name" "koi"     "label" "Koi (orange + cream)"       "accent" "#c8521e")
+  -}}
+
+  <div class="themes-gallery">
+    {{- range $palettes }}
+    <div data-bonsai-theme="{{ .name }}" class="themes-gallery__card">
+      <h3 class="themes-gallery__name">{{ .label }}</h3>
+      <p class="themes-gallery__hex">accent {{ .accent }}</p>
+      <span class="themes-gallery__chip">link button</span>
+      <span class="themes-gallery__chip themes-gallery__chip--accent">accent</span>
+    </div>
+    {{- end }}
+  </div>
+{{ end }}

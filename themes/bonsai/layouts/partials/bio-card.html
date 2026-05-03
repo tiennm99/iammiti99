@@ -1,13 +1,10 @@
 {{- $name := site.Params.name | default site.Title -}}
 {{- $tagline := site.Params.tagline -}}
 {{- $bio := site.Params.bio -}}
-{{- $avatar := site.Params.avatar -}}
 {{- $links := site.Params.links -}}
 
 <article class="bio">
-  {{- if $avatar }}
-  <img class="bio__avatar" src="{{ $avatar | strings.TrimPrefix "/" | relURL }}" alt="{{ $name }}" loading="eager" />
-  {{- end }}
+  {{ partial "avatar.html" . }}
 
   <h1 class="bio__name">{{ $name }}</h1>
 
