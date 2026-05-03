@@ -5,7 +5,25 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ## [Unreleased]
 
 ### Added
-- (placeholder for v0.3 — layout variants, i18n support)
+- (placeholder for v0.4 — auto-generated OG images, RSS opt-in, multi-section bio)
+
+## [0.3.0] — 2026-05-03
+
+Layout, social-preview, and i18n release. All additions are strictly opt-in; v0.2 sites upgrade with no config edits.
+
+### Added
+- **Layout variants** — `params.layout` accepts `stack` (default), `grid` (responsive 2-col), or `inline` (icon-only horizontal row). Pure CSS, zero JS. Unknown values warn at build time and fall back to `stack`. Live gallery at `/variants/`.
+- **OG image controls** — `params.ogImageUrl` for an explicit 1200×630 social-preview image (auto-upgrades `twitter:card` to `summary_large_image`); `params.ogImage = false` to suppress all `og:image` / `twitter:image` tags. Avatar still serves as the fallback when neither is set.
+- **i18n string externalization** — every theme-rendered string (`nav` aria-label, theme-toggle labels, default footer template) sourced from `i18n/{lang}.toml`. Bundles for `en` (default) and `vi` ship with the theme. Adding a language is a single-file change.
+
+### Changed
+- `layouts/partials/bio-card.html` validates `params.layout` against the allowlist and emits `bio__links bio__links--{layout}` so variant rules scope under a parent class (avoids the v0.2-style specificity collision).
+- `layouts/partials/head.html` resolves OG image via the new `ogImage`/`ogImageUrl` ladder; emits `twitter:image` whenever `og:image` is present.
+- `layouts/partials/footer.html` uses `i18n "footer_default"` when no `params.footerText` override is set.
+- `exampleSite/hugo.toml` switches the demo to `layout = "grid"` to make the new feature visible on the live site.
+
+### Deferred
+- Auto-generated OG images (text overlay on per-palette base PNGs). Required vendoring a TTF + 4 base PNGs (~150 KB binary) into a theme that prides itself on `< 4 KB CSS`. Moved to v0.4 once a smaller path is found.
 
 ## [0.2.0] — 2026-05-03
 

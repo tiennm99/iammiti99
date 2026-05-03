@@ -6,7 +6,7 @@
 
 A minimalist Hugo theme for link-in-bio pages, inspired by [Linktree](https://linktr.ee) and the Japanese art of [bonsai](https://en.wikipedia.org/wiki/Bonsai) — *small, curated, intentional*.
 
-**→ [Live demo](https://tiennm99.github.io/bonsai/)** · **[Icon gallery](https://tiennm99.github.io/bonsai/icons/)**
+**→ [Live demo](https://tiennm99.github.io/bonsai/)** · **[Icon gallery](https://tiennm99.github.io/bonsai/icons/)** · **[Layout variants](https://tiennm99.github.io/bonsai/variants/)** · **[Color themes](https://tiennm99.github.io/bonsai/themes/)**
 
 > 盆栽 (bonsai): "tray planting" — the art of growing miniature trees through patient, deliberate cultivation. Every branch placed with care.
 
@@ -19,7 +19,7 @@ Bonsai treats your bio page the same way: a quiet, well-pruned page that surface
 - **35 icons out of the box** — 25 brand (GitHub, Mastodon, Bluesky, X, Threads, LinkedIn, Instagram…) + 10 utility (mail, globe, rss…). Vendored from [Simple Icons](https://simpleicons.org) and [Lucide](https://lucide.dev).
 - **Light & dark mode** — respects `prefers-color-scheme`; optional toggle.
 - **Zero JavaScript by default** — pure HTML + CSS; opt-in JS for theme toggle only.
-- **Fast** — < 4 KB CSS, < 4 KB HTML, no web fonts (system stack), no runtime fetches.
+- **Fast** — < 3 KB gzipped CSS, no web fonts (system stack), no runtime fetches.
 - **Accessible** — semantic HTML, focus-visible outlines, `prefers-reduced-motion`.
 - **Responsive** — mobile-first, looks right at every viewport.
 
@@ -93,7 +93,10 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 | `avatarBg` | string (CSS color) | `var(--bonsai-accent)` | Background color of the initials circle. |
 | `favicon` | string (URL) | `/favicon.ico` | Favicon path. |
 | `colorTheme` | string | `bonsai` | Palette: `bonsai`, `sakura`, `sumi`, or `koi`. See [Color themes](#color-themes). |
+| `layout` | string | `stack` | Link arrangement: `stack`, `grid`, or `inline`. See [Layout variants](#layout-variants). |
 | `themeToggle` | bool | `false` | Render a sun/moon button in the footer + load the toggle script. |
+| `ogImage` | bool | `true` | Set `false` to suppress all `og:image` / `twitter:image` tags. |
+| `ogImageUrl` | string (URL) | — | Explicit OG preview image (1200×630 recommended). Overrides the avatar fallback and upgrades Twitter card to `summary_large_image`. |
 | `schema` | bool | `true` | Emit schema.org `Person` JSON-LD in `<head>`. Set `false` if you provide your own. |
 | `jobTitle` | string | — | Optional `Person.jobTitle` field for JSON-LD. |
 | `location` | string | — | Optional `Person.address` field for JSON-LD. |
@@ -122,6 +125,42 @@ Four built-in palettes, each with light + dark variants. Set `colorTheme` in `[p
 | `koi` | orange + cream | `#c8521e` |
 
 Live preview: **[tiennm99.github.io/bonsai/themes/](https://tiennm99.github.io/bonsai/themes/)**.
+
+## Layout variants
+
+Three arrangements for `[[params.links]]`. Pick one via `layout` in `[params]`:
+
+| Value | Look | Best for |
+|-------|------|----------|
+| `stack` *(default)* | Full-width vertical buttons | ≤ 6 link bios; the classic Linktree shape. |
+| `grid` | Two-column responsive grid (collapses to one column under 480 px) | 6–12 links; balances density and tap-target size. |
+| `inline` | Icon-only horizontal row | Lots of accounts, short page; titles stay in DOM for screen readers. |
+
+Live preview: **[tiennm99.github.io/bonsai/variants/](https://tiennm99.github.io/bonsai/variants/)**.
+
+## i18n
+
+Theme-rendered strings (nav landmark, theme-toggle labels, default footer) live in `i18n/{lang}.toml`. Bundles for `en` and `vi` ship with the theme.
+
+To use another language, set Hugo's `defaultContentLanguage` and add a matching `i18n/{lang}.toml`:
+
+```toml
+defaultContentLanguage = "fr"
+```
+
+```toml
+# i18n/fr.toml
+[nav_links_label]
+other = "Liens"
+[theme_toggle_label]
+other = "Basculer le thème clair / sombre"
+[theme_toggle_title]
+other = "Basculer le thème"
+[footer_default]
+other = "© {{ .year }} {{ .name }}"
+```
+
+Missing keys fall back to `en`. User content (`name`, `tagline`, `bio`, link `title`s, `footerText`) is never auto-translated — it stays user-owned.
 
 ## Available Icons
 
