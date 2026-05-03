@@ -11,7 +11,9 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   tagline = "Software engineer · tending small things with care"
   bio = "Building tools, writing code, growing a quiet corner of the internet."
   avatar = "/images/avatar.svg"
+  colorTheme = "sakura"      # try "bonsai" (default), "sakura", "sumi", "koi"
   themeToggle = true
+  jobTitle = "Software Engineer"
   footerText = "© 2026 · made with bonsai"
 
   [[params.links]]

@@ -88,9 +88,16 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 | `name` | string | site `title` | Display name shown as `<h1>`. |
 | `tagline` | string | — | One-liner under the name. |
 | `bio` | string (markdown) | — | Short bio paragraph. Markdown supported. |
-| `avatar` | string (URL) | — | Avatar image path. Omit to skip. |
+| `avatar` | string (URL) | — | Avatar image path. If unset, theme renders an SVG circle with auto-derived initials. |
+| `avatarInitials` | string | first letters of `name` | Override the initials when no `avatar` is set. |
+| `avatarBg` | string (CSS color) | `var(--bonsai-accent)` | Background color of the initials circle. |
 | `favicon` | string (URL) | `/favicon.ico` | Favicon path. |
-| `themeToggle` | bool | `false` | Render the light/dark toggle button + load the toggle script. |
+| `colorTheme` | string | `bonsai` | Palette: `bonsai`, `sakura`, `sumi`, or `koi`. See [Color themes](#color-themes). |
+| `themeToggle` | bool | `false` | Render a sun/moon button in the footer + load the toggle script. |
+| `schema` | bool | `true` | Emit schema.org `Person` JSON-LD in `<head>`. Set `false` if you provide your own. |
+| `jobTitle` | string | — | Optional `Person.jobTitle` field for JSON-LD. |
+| `location` | string | — | Optional `Person.address` field for JSON-LD. |
+| `email` | string | — | Optional `Person.email` field for JSON-LD. |
 | `footer` | bool | `true` | Show the footer. |
 | `footerText` | string (HTML) | `© {year} {name}` | Override footer text. HTML allowed. |
 | `links` | array | — | Bio links. See below. |
@@ -102,6 +109,19 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 | `title` | string | yes | Link label. |
 | `url` | string | yes | Link target. `mailto:` and `tel:` are rendered without `target=_blank`. |
 | `icon` | string | no | Icon name from the available set (see below). Unknown names render a generic external-link glyph. |
+
+## Color themes
+
+Four built-in palettes, each with light + dark variants. Set `colorTheme` in `[params]`:
+
+| Name | Vibe | Accent |
+|------|------|--------|
+| `bonsai` *(default)* | washi paper + vermilion seal | `#8b3a2b` |
+| `sakura` | cherry blossom pink | `#d4456a` |
+| `sumi` | monochrome ink | `#1a1a1a` |
+| `koi` | orange + cream | `#c8521e` |
+
+Live preview: **[tiennm99.github.io/bonsai/themes/](https://tiennm99.github.io/bonsai/themes/)**.
 
 ## Available Icons
 
