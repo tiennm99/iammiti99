@@ -2,6 +2,12 @@
 {{- $tagline := site.Params.tagline -}}
 {{- $bio := site.Params.bio -}}
 {{- $links := site.Params.links -}}
+{{- $layout := site.Params.layout | default "stack" -}}
+{{- $validLayouts := slice "stack" "grid" "inline" -}}
+{{- if not (in $validLayouts $layout) -}}
+  {{- warnf "bonsai: unknown params.layout %q (expected stack|grid|inline), falling back to 'stack'" $layout -}}
+  {{- $layout = "stack" -}}
+{{- end -}}
 
 <article class="bio">
   {{ partial "avatar.html" . }}
@@ -17,7 +23,7 @@
   {{- end }}
 
   {{- if $links }}
-  <nav class="bio__links" aria-label="Links">
+  <nav class="bio__links bio__links--{{ $layout }}" aria-label="{{ i18n "nav_links_label" | default "Links" }}">
     {{- range $links }}
       {{- partial "link-button.html" . -}}
     {{- end }}

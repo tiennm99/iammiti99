@@ -1,0 +1,36 @@
+{{ define "main" }}
+  <article style="text-align:center;">
+    <h1 style="font-family:var(--bonsai-font-display);">Layout variants</h1>
+    <p style="color:var(--bonsai-muted);max-width:32rem;margin:0 auto 2rem;">
+      Set <code>layout = "stack"</code> (default), <code>"grid"</code>, or <code>"inline"</code> in your <code>hugo.toml</code> <code>[params]</code> block.
+    </p>
+  </article>
+
+  {{- $sample := slice
+    (dict "title" "GitHub"   "url" "#" "icon" "github")
+    (dict "title" "LinkedIn" "url" "#" "icon" "linkedin")
+    (dict "title" "Email"    "url" "#" "icon" "mail")
+    (dict "title" "Mastodon" "url" "#" "icon" "mastodon")
+  -}}
+
+  {{- $variants := slice
+    (dict "name" "stack"  "label" "Stack (default)" "desc" "Full-width vertical buttons. Best for ≤ 6 links.")
+    (dict "name" "grid"   "label" "Grid"            "desc" "Two-column responsive grid; collapses to one column under 480 px.")
+    (dict "name" "inline" "label" "Inline"          "desc" "Icon-only horizontal row. Titles stay in DOM for screen readers.")
+  -}}
+
+  <div class="variants-gallery">
+    {{- range $variants }}
+    <section class="variants-gallery__card">
+      <h3 class="variants-gallery__name">{{ .label }}</h3>
+      <p class="variants-gallery__desc">{{ .desc }}</p>
+      <code class="variants-gallery__code">layout = "{{ .name }}"</code>
+      <nav class="bio__links bio__links--{{ .name }}" aria-label="{{ .label }} sample">
+        {{- range $sample }}
+          {{- partial "link-button.html" . -}}
+        {{- end }}
+      </nav>
+    </section>
+    {{- end }}
+  </div>
+{{ end }}
