@@ -1,5 +1,5 @@
-// Optional: enable via params.themeToggle = true in hugo.toml
-// Persists user preference and overrides system theme.
+// Loaded only when params.themeToggle = true.
+// Persists user preference and overrides system color-scheme.
 (function () {
   const KEY = 'bonsai-theme';
   const root = document.documentElement;
@@ -9,9 +9,18 @@
   const btn = document.querySelector('[data-bonsai-theme-toggle]');
   if (!btn) return;
 
+  function syncPressed() {
+    const isDark = root.dataset.theme === 'dark'
+      || (root.dataset.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.setAttribute('aria-pressed', String(isDark));
+  }
+
+  syncPressed();
+
   btn.addEventListener('click', () => {
-    const current = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = current;
-    localStorage.setItem(KEY, current);
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem(KEY, next);
+    syncPressed();
   });
 })();

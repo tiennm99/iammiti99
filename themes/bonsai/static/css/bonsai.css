@@ -1,15 +1,9 @@
 /* Bonsai — minimalist link-in-bio Hugo theme
- * Aesthetic: Japanese zen — generous whitespace, calm palette, restrained type. */
+ * Aesthetic: Japanese zen — generous whitespace, calm palette, restrained type.
+ * Palettes: bonsai (default), sakura, sumi, koi. Selected via [data-bonsai-theme]. */
 
 :root {
-  --bonsai-bg: #f4efe6;          /* washi paper */
-  --bonsai-surface: #ffffff;
-  --bonsai-text: #2b2b2b;        /* sumi ink */
-  --bonsai-muted: #6b6b6b;
-  --bonsai-accent: #8b3a2b;      /* shu-iro / vermilion seal */
-  --bonsai-border: #d9d0bf;
   --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .04);
-
   --bonsai-radius: 14px;
   --bonsai-gap: clamp(.75rem, 1.6vw, 1rem);
   --bonsai-pad: clamp(1.25rem, 4vw, 2rem);
@@ -19,8 +13,29 @@
   --bonsai-font-display: ui-serif, Georgia, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "Times New Roman", serif;
 }
 
+/* ============================================================
+   Palettes
+   Each palette defines six color vars in light + dark variants.
+   Toggle order:
+     1. base block sets light values
+     2. @media (prefers-color-scheme:dark) overrides to dark
+     3. [data-theme="dark"] forces dark (manual toggle)
+     4. [data-theme="light"] forces light (manual toggle)
+   ============================================================ */
+
+/* --- Bonsai (default: washi + vermilion) --- */
+:root,
+[data-bonsai-theme="bonsai"] {
+  --bonsai-bg: #f4efe6;
+  --bonsai-surface: #ffffff;
+  --bonsai-text: #2b2b2b;
+  --bonsai-muted: #6b6b6b;
+  --bonsai-accent: #8b3a2b;
+  --bonsai-border: #d9d0bf;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]):not([data-bonsai-theme]),
+  [data-bonsai-theme="bonsai"]:not([data-theme="light"]) {
     --bonsai-bg: #1a1817;
     --bonsai-surface: #232020;
     --bonsai-text: #ece6d9;
@@ -30,23 +45,110 @@
     --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
   }
 }
-
-[data-theme="light"] {
-  --bonsai-bg: #f4efe6;
-  --bonsai-surface: #ffffff;
-  --bonsai-text: #2b2b2b;
-  --bonsai-muted: #6b6b6b;
-  --bonsai-accent: #8b3a2b;
-  --bonsai-border: #d9d0bf;
-}
-[data-theme="dark"] {
+[data-theme="dark"]:not([data-bonsai-theme]),
+[data-bonsai-theme="bonsai"][data-theme="dark"] {
   --bonsai-bg: #1a1817;
   --bonsai-surface: #232020;
   --bonsai-text: #ece6d9;
   --bonsai-muted: #a09a8d;
   --bonsai-accent: #d6856e;
   --bonsai-border: #3a3633;
+  --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
 }
+
+/* --- Sakura (cherry blossom) --- */
+[data-bonsai-theme="sakura"] {
+  --bonsai-bg: #fff5f5;
+  --bonsai-surface: #ffffff;
+  --bonsai-text: #3a2228;
+  --bonsai-muted: #876773;
+  --bonsai-accent: #d4456a;
+  --bonsai-border: #f0d4dc;
+}
+@media (prefers-color-scheme: dark) {
+  [data-bonsai-theme="sakura"]:not([data-theme="light"]) {
+    --bonsai-bg: #1f1418;
+    --bonsai-surface: #2a1d22;
+    --bonsai-text: #f7e3e9;
+    --bonsai-muted: #b89aa3;
+    --bonsai-accent: #ec7596;
+    --bonsai-border: #3d2932;
+    --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+  }
+}
+[data-bonsai-theme="sakura"][data-theme="dark"] {
+  --bonsai-bg: #1f1418;
+  --bonsai-surface: #2a1d22;
+  --bonsai-text: #f7e3e9;
+  --bonsai-muted: #b89aa3;
+  --bonsai-accent: #ec7596;
+  --bonsai-border: #3d2932;
+  --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+/* --- Sumi (monochrome ink) --- */
+[data-bonsai-theme="sumi"] {
+  --bonsai-bg: #fafafa;
+  --bonsai-surface: #ffffff;
+  --bonsai-text: #111111;
+  --bonsai-muted: #666666;
+  --bonsai-accent: #1a1a1a;
+  --bonsai-border: #e0e0e0;
+}
+@media (prefers-color-scheme: dark) {
+  [data-bonsai-theme="sumi"]:not([data-theme="light"]) {
+    --bonsai-bg: #0d0d0d;
+    --bonsai-surface: #1a1a1a;
+    --bonsai-text: #f5f5f5;
+    --bonsai-muted: #a0a0a0;
+    --bonsai-accent: #dddddd;
+    --bonsai-border: #2a2a2a;
+    --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+  }
+}
+[data-bonsai-theme="sumi"][data-theme="dark"] {
+  --bonsai-bg: #0d0d0d;
+  --bonsai-surface: #1a1a1a;
+  --bonsai-text: #f5f5f5;
+  --bonsai-muted: #a0a0a0;
+  --bonsai-accent: #dddddd;
+  --bonsai-border: #2a2a2a;
+  --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+/* --- Koi (orange + cream) --- */
+[data-bonsai-theme="koi"] {
+  --bonsai-bg: #fef6e4;
+  --bonsai-surface: #ffffff;
+  --bonsai-text: #3a2620;
+  --bonsai-muted: #8a6f5c;
+  --bonsai-accent: #c8521e;
+  --bonsai-border: #f2dfb8;
+}
+@media (prefers-color-scheme: dark) {
+  [data-bonsai-theme="koi"]:not([data-theme="light"]) {
+    --bonsai-bg: #1c1410;
+    --bonsai-surface: #2a1f18;
+    --bonsai-text: #f7e2c4;
+    --bonsai-muted: #c9a988;
+    --bonsai-accent: #ff8b5c;
+    --bonsai-border: #3d2c20;
+    --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+  }
+}
+[data-bonsai-theme="koi"][data-theme="dark"] {
+  --bonsai-bg: #1c1410;
+  --bonsai-surface: #2a1f18;
+  --bonsai-text: #f7e2c4;
+  --bonsai-muted: #c9a988;
+  --bonsai-accent: #ff8b5c;
+  --bonsai-border: #3d2c20;
+  --bonsai-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+/* ============================================================
+   Layout & components
+   ============================================================ */
 
 * { box-sizing: border-box; }
 
@@ -83,6 +185,12 @@ body {
   border: 1px solid var(--bonsai-border);
   box-shadow: var(--bonsai-shadow);
   margin-bottom: 1.25rem;
+}
+
+.bio__avatar--initials {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bio__name {
@@ -168,6 +276,105 @@ body {
   padding: 1.5rem var(--bonsai-pad) 2rem;
   color: var(--bonsai-muted);
   font-size: .8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+}
+
+.bonsai-footer p { margin: 0; }
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: var(--bonsai-surface);
+  color: var(--bonsai-accent);
+  border: 1px solid var(--bonsai-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--bonsai-accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--bonsai-accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg { display: block; }
+
+/* Show moon in light, sun in dark.
+   The button shows the icon for the mode you'll switch TO. */
+.theme-toggle__sun { display: none; }
+.theme-toggle__moon { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .theme-toggle__sun { display: block; }
+  html:not([data-theme="light"]) .theme-toggle__moon { display: none; }
+}
+
+[data-theme="dark"] .theme-toggle__sun { display: block; }
+[data-theme="dark"] .theme-toggle__moon { display: none; }
+[data-theme="light"] .theme-toggle__sun { display: none; }
+[data-theme="light"] .theme-toggle__moon { display: block; }
+
+/* ============================================================
+   Themes gallery (exampleSite/themes/) — 4 mini bio cards
+   ============================================================ */
+
+.themes-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 60rem;
+  margin: 2rem auto;
+}
+
+.themes-gallery__card {
+  background: var(--bonsai-bg);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.themes-gallery__name {
+  font-family: var(--bonsai-font-display);
+  font-size: 1.1rem;
+  margin: 0 0 .25rem;
+  color: var(--bonsai-text);
+}
+
+.themes-gallery__hex {
+  color: var(--bonsai-muted);
+  font-family: ui-monospace, monospace;
+  font-size: .75rem;
+  margin: 0 0 1rem;
+}
+
+.themes-gallery__chip {
+  display: inline-block;
+  padding: .4rem .75rem;
+  background: var(--bonsai-surface);
+  color: var(--bonsai-text);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  font-size: .85rem;
+}
+
+.themes-gallery__chip--accent {
+  background: var(--bonsai-accent);
+  color: var(--bonsai-bg);
+  border-color: var(--bonsai-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,28 @@
+{{- /* Emit JSON-LD ProfilePage describing the bio as a Person.
+       Suppressed when site.Params.schema = false. */ -}}
+{{- if ne (site.Params.schema | default true) false -}}
+{{- $name := site.Params.name | default site.Title -}}
+{{- $sameAs := slice -}}
+{{- range site.Params.links -}}
+  {{- with .url -}}
+    {{- if not (or (strings.HasPrefix . "mailto:") (strings.HasPrefix . "tel:")) -}}
+      {{- $sameAs = $sameAs | append . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $person := dict
+  "@type" "Person"
+  "name"  $name
+  "url"   (site.BaseURL | absURL)
+-}}
+{{- with site.Params.bio -}}{{- $person = merge $person (dict "description" .) -}}{{- end -}}
+{{- with site.Params.avatar -}}
+  {{- $person = merge $person (dict "image" (. | strings.TrimPrefix "/" | absURL)) -}}
+{{- end -}}
+{{- with site.Params.jobTitle -}}{{- $person = merge $person (dict "jobTitle" .) -}}{{- end -}}
+{{- with site.Params.location -}}{{- $person = merge $person (dict "address" .) -}}{{- end -}}
+{{- with site.Params.email -}}{{- $person = merge $person (dict "email" .) -}}{{- end -}}
+{{- if $sameAs -}}{{- $person = merge $person (dict "sameAs" $sameAs) -}}{{- end -}}
+{{- $payload := dict "@context" "https://schema.org" "@type" "ProfilePage" "mainEntity" $person -}}
+<script type="application/ld+json">{{ $payload | jsonify | safeJS }}</script>
+{{- end -}}

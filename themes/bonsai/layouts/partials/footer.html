@@ -5,5 +5,8 @@
   {{- else -}}
     <p>© {{ now.Year }} {{ site.Params.name | default site.Title }}</p>
   {{- end -}}
+  {{- if site.Params.themeToggle -}}
+    {{ partial "theme-toggle-button.html" . }}
+  {{- end -}}
 </footer>
 {{- end -}}

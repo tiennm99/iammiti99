@@ -20,6 +20,8 @@
 {{- end }}
 <meta name="twitter:card" content="summary" />
 
+{{ partial "schema-person.html" . }}
+
 <link rel="icon" href="{{ (site.Params.favicon | default `favicon.ico`) | strings.TrimPrefix "/" | relURL }}" />
 <link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
 {{- if site.Params.themeToggle }}
