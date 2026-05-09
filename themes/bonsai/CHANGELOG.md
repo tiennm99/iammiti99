@@ -4,6 +4,14 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ## [Unreleased]
 
+### Deferred to v0.5
+- **Auto-generated OG images** (#7) — moved again from v0.4 because no candidate path meets the ≤ 30 KB binary budget. Needs measured prototype before committing.
+- **Multi-section bio** (#9) — schema design call deferred per the issue's own "2026-Q3 candidate" recommendation.
+
+## [0.4.0] — 2026-05-10
+
+A11y, polish, and ergonomics release. All additions are strictly opt-in or transparent; v0.3 sites upgrade with no config edits. Closes #8, #10, #11; defers #7 + #9 to v0.5.
+
 ### Added
 - **Favicon polish** — opt-in `params.faviconSvg` and `params.appleTouchIcon` for SVG and iOS home-screen icons. Default behavior unchanged when unset.
 - **Demo-only gallery CSS** — `/themes/` and `/variants/` pages load a separate `static/css/gallery.css`; `static/css/bonsai.css` no longer ships gallery selectors to user sites. Saves ~1.9 KB raw / ~200 B gzipped on every real site. New `head_extra` block in `baseof.html` enables per-page stylesheet additions.
@@ -20,8 +28,9 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Removed
 - Non-standard `data-theme="auto"` attribute from `<html>`. The CSS only ever queried `light` / `dark` via `:not([data-theme="..."])`; `auto` was a no-op. Inline FOUC script (v0.3) sets the attribute on first paint when the user has chosen, so behavior is unchanged.
 
-### Deferred
-- (v0.4 — auto-generated OG images, RSS opt-in, multi-section bio)
+### Deferred to v0.5
+- Auto-generated OG images (#7).
+- Multi-section bio (#9).
 
 ## [0.3.0] — 2026-05-03
 
