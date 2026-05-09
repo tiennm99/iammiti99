@@ -62,7 +62,7 @@
   --bonsai-surface: #ffffff;
   --bonsai-text: #3a2228;
   --bonsai-muted: #876773;
-  --bonsai-accent: #d4456a;
+  --bonsai-accent: #c93f63; /* darkened from #d4456a — was 4.04:1 vs bg, now 4.49:1 (WCAG AA) */
   --bonsai-border: #f0d4dc;
 }
 @media (prefers-color-scheme: dark) {
@@ -121,8 +121,8 @@
   --bonsai-bg: #fef6e4;
   --bonsai-surface: #ffffff;
   --bonsai-text: #3a2620;
-  --bonsai-muted: #8a6f5c;
-  --bonsai-accent: #c8521e;
+  --bonsai-muted: #7a5e48; /* darkened from #8a6f5c — was 4.33:1 vs bg, now 5.54:1 (WCAG AA) */
+  --bonsai-accent: #bd4c1c; /* darkened from #c8521e — was 4.17:1 vs bg, now 4.63:1 (WCAG AA) */
   --bonsai-border: #f2dfb8;
 }
 @media (prefers-color-scheme: dark) {
@@ -256,6 +256,7 @@ body {
 }
 
 .link {
+  position: relative; /* contain absolute-positioned visually-hidden title in inline mode */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -275,6 +276,7 @@ body {
 .link:hover {
   transform: translateY(-1px);
   border-color: var(--bonsai-accent);
+  background: color-mix(in oklab, var(--bonsai-surface) 94%, var(--bonsai-accent));
 }
 
 .link:focus-visible {
@@ -318,13 +320,13 @@ body {
 
 .bonsai-footer p { margin: 0; }
 
-/* Theme toggle button */
+/* Theme toggle button — 44×44 hit target meets Apple HIG / WCAG 2.5.5 AAA. */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: var(--bonsai-surface);
   color: var(--bonsai-accent);
@@ -343,6 +345,8 @@ body {
   outline: 2px solid var(--bonsai-accent);
   outline-offset: 2px;
 }
+
+.theme-toggle:active { transform: translateY(0); }
 
 /* Show moon in light, sun in dark.
    The button shows the icon for the mode you'll switch TO.
@@ -451,5 +455,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .link, .link:hover { transition: none; transform: none; }
+  .link, .link:hover, .link:active,
+  .theme-toggle, .theme-toggle:hover, .theme-toggle:active {
+    transition: none;
+    transform: none;
+  }
 }

@@ -19,7 +19,7 @@ Bonsai treats your bio page the same way: a quiet, well-pruned page that surface
 - **35 icons out of the box** — 25 brand (GitHub, Mastodon, Bluesky, X, Threads, LinkedIn, Instagram…) + 10 utility (mail, globe, rss…). Vendored from [Simple Icons](https://simpleicons.org) and [Lucide](https://lucide.dev).
 - **Light & dark mode** — respects `prefers-color-scheme`; optional toggle.
 - **Zero JavaScript by default** — pure HTML + CSS; opt-in JS for theme toggle only.
-- **Fast** — < 3 KB gzipped CSS, no web fonts (system stack), no runtime fetches.
+- **Fast** — ~3 KB gzipped CSS, no web fonts (system stack), no runtime fetches.
 - **Accessible** — semantic HTML, focus-visible outlines, `prefers-reduced-motion`.
 - **Responsive** — mobile-first, looks right at every viewport.
 
@@ -91,7 +91,9 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 | `avatar` | string (URL) | — | Avatar image path. If unset, theme renders an SVG circle with auto-derived initials. |
 | `avatarInitials` | string | first letters of `name` | Override the initials when no `avatar` is set. |
 | `avatarBg` | string (CSS color) | `var(--bonsai-accent)` | Background color of the initials circle. |
-| `favicon` | string (URL) | `/favicon.ico` | Favicon path. |
+| `favicon` | string (URL) | `/favicon.ico` | Favicon path (`.ico` fallback). |
+| `faviconSvg` | string (URL) | — | Optional SVG favicon. Modern browsers prefer this when set. |
+| `appleTouchIcon` | string (URL) | — | 180×180 PNG for iOS home-screen / Safari pinned tabs. |
 | `colorTheme` | string | `bonsai` | Palette: `bonsai`, `sakura`, `sumi`, or `koi`. See [Color themes](#color-themes). |
 | `layout` | string | `stack` | Link arrangement: `stack`, `grid`, or `inline`. See [Layout variants](#layout-variants). |
 | `themeToggle` | bool | `false` | Render a sun/moon button in the footer + load the toggle script. |
@@ -120,9 +122,9 @@ Four built-in palettes, each with light + dark variants. Set `colorTheme` in `[p
 | Name | Vibe | Accent |
 |------|------|--------|
 | `bonsai` *(default)* | washi paper + vermilion seal | `#8b3a2b` |
-| `sakura` | cherry blossom pink | `#d4456a` |
+| `sakura` | cherry blossom pink | `#c93f63` |
 | `sumi` | monochrome ink | `#1a1a1a` |
-| `koi` | orange + cream | `#c8521e` |
+| `koi` | orange + cream | `#bd4c1c` |
 
 Live preview: **[tiennm99.github.io/bonsai/themes/](https://tiennm99.github.io/bonsai/themes/)**.
 
