@@ -38,8 +38,18 @@
 
 {{ partial "schema-person.html" . }}
 
+{{- with site.Params.faviconSvg }}
+<link rel="icon" type="image/svg+xml" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
+{{- end }}
 <link rel="icon" href="{{ (site.Params.favicon | default `favicon.ico`) | strings.TrimPrefix "/" | relURL }}" />
+{{- with site.Params.appleTouchIcon }}
+<link rel="apple-touch-icon" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
+{{- end }}
 <link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
 {{- if site.Params.themeToggle }}
+{{- /* Inline blocking script (no FOUC): apply saved theme before first paint.
+       Tiny (~140B) — meets the <3KB CSS / minimal-JS budget. */ -}}
+<script>(function(){try{var t=localStorage.getItem('bonsai-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<noscript><style>.theme-toggle{display:none!important}</style></noscript>
 <script defer src="{{ `js/theme-toggle.js` | relURL }}"></script>
 {{- end }}

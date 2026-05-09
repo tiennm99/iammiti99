@@ -5,7 +5,20 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ## [Unreleased]
 
 ### Added
-- (placeholder for v0.4 — auto-generated OG images, RSS opt-in, multi-section bio)
+- **Favicon polish** — opt-in `params.faviconSvg` and `params.appleTouchIcon` for SVG and iOS home-screen icons. Default behavior unchanged when unset.
+
+### Changed
+- **A11y** — sakura accent darkened `#d4456a → #c93f63` (4.04 → 4.49 vs bg) and koi accent darkened `#c8521e → #bd4c1c` (4.17 → 4.63 vs bg) to reach WCAG AA on the gallery accent chip. Brand intent preserved (cherry blossom pink / koi orange). README hex table synced.
+- **A11y** — `/themes/` and `/variants/` gallery wrappers are `<section aria-labelledby>` keyed to the page `<h1>`. Variant cards demoted from `<section>` to `<article>` to avoid double-region nesting.
+- **Polish** — `.link:hover` adds a subtle accent tint via `color-mix(in oklab, …)` alongside the existing border + 1px lift. Strengthens hover affordance without breaking the restrained look.
+- **Polish** — theme toggle hidden via `<noscript>` when JavaScript is disabled (button is JS-only; previously rendered but did nothing).
+- **i18n** — theme-toggle `aria-label` and `title` now use `with`/`else` fallback so a missing translation key in a custom language never leaks the raw key into the DOM.
+
+### Removed
+- Non-standard `data-theme="auto"` attribute from `<html>`. The CSS only ever queried `light` / `dark` via `:not([data-theme="..."])`; `auto` was a no-op. Inline FOUC script (v0.3) sets the attribute on first paint when the user has chosen, so behavior is unchanged.
+
+### Deferred
+- (v0.4 — auto-generated OG images, RSS opt-in, multi-section bio)
 
 ## [0.3.0] — 2026-05-03
 
