@@ -1,0 +1,92 @@
+/* Bonsai gallery styles — loaded only on /themes/ and /variants/ demo pages.
+ * Kept out of bonsai.css so end-user sites don't ship demo-only selectors. */
+
+/* ============================================================
+   Themes gallery (exampleSite/themes/) — 4 mini bio cards
+   ============================================================ */
+
+.themes-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 60rem;
+  margin: 2rem auto;
+}
+
+.themes-gallery__card {
+  background: var(--bonsai-bg);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.themes-gallery__name {
+  font-family: var(--bonsai-font-display);
+  font-size: 1.1rem;
+  margin: 0 0 .25rem;
+  color: var(--bonsai-text);
+}
+
+.themes-gallery__hex {
+  color: var(--bonsai-muted);
+  font-family: ui-monospace, monospace;
+  font-size: .75rem;
+  margin: 0 0 1rem;
+}
+
+.themes-gallery__chip {
+  display: inline-block;
+  padding: .4rem .75rem;
+  background: var(--bonsai-surface);
+  color: var(--bonsai-text);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  font-size: .85rem;
+}
+
+.themes-gallery__chip--accent {
+  background: var(--bonsai-accent);
+  color: var(--bonsai-bg);
+  border-color: var(--bonsai-accent);
+}
+
+/* ============================================================
+   Variants gallery (exampleSite/variants/) — 3 sample bio cards
+   ============================================================ */
+
+.variants-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 36rem;
+  margin: 2rem auto;
+}
+
+.variants-gallery__card {
+  background: var(--bonsai-surface);
+  border: 1px solid var(--bonsai-border);
+  border-radius: var(--bonsai-radius);
+  padding: 1.5rem;
+}
+
+.variants-gallery__name {
+  font-family: var(--bonsai-font-display);
+  font-size: 1.1rem;
+  margin: 0 0 .25rem;
+  color: var(--bonsai-text);
+}
+
+.variants-gallery__desc {
+  color: var(--bonsai-muted);
+  font-size: .85rem;
+  margin: 0 0 .5rem;
+}
+
+.variants-gallery__code {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: ui-monospace, monospace;
+  font-size: .75rem;
+  color: var(--bonsai-muted);
+}

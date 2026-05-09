@@ -19,7 +19,7 @@ Bonsai treats your bio page the same way: a quiet, well-pruned page that surface
 - **35 icons out of the box** — 25 brand (GitHub, Mastodon, Bluesky, X, Threads, LinkedIn, Instagram…) + 10 utility (mail, globe, rss…). Vendored from [Simple Icons](https://simpleicons.org) and [Lucide](https://lucide.dev).
 - **Light & dark mode** — respects `prefers-color-scheme`; optional toggle.
 - **Zero JavaScript by default** — pure HTML + CSS; opt-in JS for theme toggle only.
-- **Fast** — ~3 KB gzipped CSS, no web fonts (system stack), no runtime fetches.
+- **Fast** — < 3 KB gzipped CSS, no web fonts (system stack), no runtime fetches.
 - **Accessible** — semantic HTML, focus-visible outlines, `prefers-reduced-motion`.
 - **Responsive** — mobile-first, looks right at every viewport.
 
