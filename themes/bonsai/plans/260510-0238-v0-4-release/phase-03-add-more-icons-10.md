@@ -1,9 +1,9 @@
 ---
 phase: 3
-title: "Add more icons (#10)"
-status: pending
+title: Add more icons (#10)
+status: completed
 priority: P3
-effort: "30m"
+effort: 30m
 dependencies: []
 ---
 

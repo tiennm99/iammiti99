@@ -1,10 +1,13 @@
 ---
 phase: 7
-title: "v0.4.0 release prep"
-status: pending
+title: v0.4.0 release prep
+status: in-progress
 priority: P3
-effort: "30m"
-dependencies: [2, 3, 4]
+effort: 30m
+dependencies:
+  - 2
+  - 3
+  - 4
 ---
 
 # Phase 7: v0.4.0 release prep

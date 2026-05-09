@@ -1,9 +1,9 @@
 ---
 phase: 4
-title: "Optional RSS feed (#8)"
-status: pending
+title: Optional RSS feed (#8)
+status: completed
 priority: P3
-effort: "45m"
+effort: 45m
 dependencies: []
 ---
 
