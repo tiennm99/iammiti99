@@ -30,6 +30,13 @@ kofi:         { family: brand, slug: kofi }
 patreon:      { family: brand, slug: patreon }
 buymeacoffee: { family: brand, slug: buymeacoffee }
 paypal:       { family: brand, slug: paypal }
+bandcamp:     { family: brand, slug: bandcamp }
+soundcloud:   { family: brand, slug: soundcloud }
+spotify:      { family: brand, slug: spotify }
+figma:        { family: brand, slug: figma }
+dribbble:     { family: brand, slug: dribbble }
+stackoverflow: { family: brand, slug: stackoverflow }
+matrix:       { family: brand, slug: matrix }
 
 # --- UI / Utility ---
 mail:         { family: ui, slug: mail }
@@ -42,3 +49,6 @@ mappin:       { family: ui, slug: map-pin }
 filetext:     { family: ui, slug: file-text }
 extlink:      { family: ui, slug: external-link }
 share:        { family: ui, slug: share-2 }
+bookopen:     { family: ui, slug: book-open }
+download:     { family: ui, slug: download }
+heart:        { family: ui, slug: heart }
