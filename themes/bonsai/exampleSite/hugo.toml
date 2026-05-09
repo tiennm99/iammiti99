@@ -3,8 +3,9 @@ languageCode = "en-us"
 title = "Tien Nguyen"
 theme = "bonsai"
 
-# Bonsai is a single-page bio theme — no need for taxonomies, sitemaps, or RSS.
-disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+# Bonsai is a single-page bio theme — taxonomies/sitemaps off; RSS on for the
+# v0.4 demo (set params.rss = true and remove "RSS" from disableKinds).
+disableKinds = ["taxonomy", "term", "sitemap", "404"]
 
 [params]
   name = "Tien Nguyen"
@@ -15,6 +16,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   colorTheme = "sakura"      # try "bonsai" (default), "sakura", "sumi", "koi"
   layout = "grid"            # try "stack" (default), "grid", "inline"
   themeToggle = true
+  rss = true                 # opt-in RSS feed of [[params.links]]
   jobTitle = "Software Engineer"
   footerText = "© 2026 · made with bonsai"
   # ogImageUrl = "/og.png"   # optional 1200×630 image for social previews

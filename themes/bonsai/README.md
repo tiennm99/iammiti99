@@ -97,6 +97,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 | `colorTheme` | string | `bonsai` | Palette: `bonsai`, `sakura`, `sumi`, or `koi`. See [Color themes](#color-themes). |
 | `layout` | string | `stack` | Link arrangement: `stack`, `grid`, or `inline`. See [Layout variants](#layout-variants). |
 | `themeToggle` | bool | `false` | Render a sun/moon button in the footer + load the toggle script. |
+| `rss` | bool | `false` | Render an RSS 2.0 feed of `[[params.links]]` at `/index.xml` and emit `<link rel="alternate">` in `<head>`. Requires removing `RSS` from `disableKinds`. |
 | `ogImage` | bool | `true` | Set `false` to suppress all `og:image` / `twitter:image` tags. |
 | `ogImageUrl` | string (URL) | — | Explicit OG preview image (1200×630 recommended). Overrides the avatar fallback and upgrades Twitter card to `summary_large_image`. |
 | `schema` | bool | `true` | Emit schema.org `Person` JSON-LD in `<head>`. Set `false` if you provide your own. |
@@ -139,6 +140,20 @@ Three arrangements for `[[params.links]]`. Pick one via `layout` in `[params]`:
 | `inline` | Icon-only horizontal row | Lots of accounts, short page; titles stay in DOM for screen readers. |
 
 Live preview: **[tiennm99.github.io/bonsai/variants/](https://tiennm99.github.io/bonsai/variants/)**.
+
+## RSS feed (opt-in)
+
+Off by default. To enable a feed of your `[[params.links]]` at `/index.xml`:
+
+```toml
+# remove "RSS" from disableKinds — Hugo emits it by default but the theme suggests disabling it
+disableKinds = ["taxonomy", "term", "sitemap", "404"]
+
+[params]
+  rss = true
+```
+
+The theme renders one `<item>` per link. `pubDate` is the build time (links lack intrinsic dates), so the feed updates whenever the site rebuilds — fine for a curated bio, less ideal for high-frequency feeds.
 
 ## i18n
 
