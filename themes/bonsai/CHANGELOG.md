@@ -8,6 +8,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - **Favicon polish** — opt-in `params.faviconSvg` and `params.appleTouchIcon` for SVG and iOS home-screen icons. Default behavior unchanged when unset.
 - **Demo-only gallery CSS** — `/themes/` and `/variants/` pages load a separate `static/css/gallery.css`; `static/css/bonsai.css` no longer ships gallery selectors to user sites. Saves ~1.9 KB raw / ~200 B gzipped on every real site. New `head_extra` block in `baseof.html` enables per-page stylesheet additions.
 - **10 new icons** — set grows from 35 to 45. Brand additions: `bandcamp`, `soundcloud`, `spotify`, `figma`, `dribbble`, `stackoverflow`, `matrix`. Utility additions: `bookopen`, `download`, `heart`. Vendored from Simple Icons v13 (CC0) and Lucide v0.460 (ISC) at the same versions; soft ceiling for v0-line is ~50.
+- **Optional RSS feed** — opt-in `params.rss = true` renders an RSS 2.0 feed of `[[params.links]]` at `/index.xml` and emits `<link rel="alternate">` in `<head>`. Requires removing `RSS` from `disableKinds`. `pubDate` = build time. Off by default; existing sites unaffected.
 
 ### Changed
 - **A11y** — sakura accent darkened `#d4456a → #c93f63` (4.04 → 4.49 vs bg) and koi accent darkened `#c8521e → #bd4c1c` (4.17 → 4.63 vs bg) to reach WCAG AA on the gallery accent chip. Brand intent preserved (cherry blossom pink / koi orange). README hex table synced.

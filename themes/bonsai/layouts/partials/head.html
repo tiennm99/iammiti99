@@ -46,6 +46,9 @@
 <link rel="apple-touch-icon" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
 {{- end }}
 <link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
+{{- if site.Params.rss }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Params.name | default site.Title }}" href="{{ `index.xml` | absURL }}" />
+{{- end }}
 {{- if site.Params.themeToggle }}
 {{- /* Inline blocking script (no FOUC): apply saved theme before first paint.
        Tiny (~140B) — meets the <3KB CSS / minimal-JS budget. */ -}}
