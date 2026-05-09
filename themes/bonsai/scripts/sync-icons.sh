@@ -31,6 +31,7 @@ BRAND_ICONS=(
   github gitlab mastodon bluesky x threads linkedin instagram facebook
   tiktok youtube twitch discord telegram signal whatsapp reddit medium
   devdotto substack hashnode kofi patreon buymeacoffee paypal
+  bandcamp soundcloud spotify figma dribbble stackoverflow matrix
 )
 
 fetch_brand() {
@@ -64,6 +65,7 @@ done
 # ---------------------------------------------------------------------------
 UI_ICONS=(
   mail globe link rss calendar phone map-pin file-text external-link share-2
+  book-open download heart
 )
 
 fetch_ui() {
