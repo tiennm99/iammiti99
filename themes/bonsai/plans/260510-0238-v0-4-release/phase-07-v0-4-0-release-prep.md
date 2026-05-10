@@ -1,7 +1,7 @@
 ---
 phase: 7
 title: v0.4.0 release prep
-status: in-progress
+status: completed
 priority: P3
 effort: 30m
 dependencies:

@@ -4,7 +4,7 @@ description: >-
   Ship issues #11, #10, #8 each as its own PR; tag v0.4.0. Issues #7 (OG
   auto-gen) and #9 (multi-section bio) deferred to v0.5 per their own deferral
   notes.
-status: in-progress
+status: completed
 priority: P2
 created: 2026-05-10T00:00:00.000Z
 ---
@@ -34,7 +34,7 @@ Each phase ships as its own feature branch + PR (matches repo pattern).
 | 2 | [Extract gallery CSS (#11)](./phase-02-extract-gallery-css-11.md) | Completed |
 | 3 | [Add more icons (#10)](./phase-03-add-more-icons-10.md) | Completed |
 | 4 | [Optional RSS feed (#8)](./phase-04-optional-rss-feed-8.md) | Completed |
-| 7 | [v0.4.0 release prep](./phase-07-v0-4-0-release-prep.md) | In Progress |
+| 7 | [v0.4.0 release prep](./phase-07-v0-4-0-release-prep.md) | Completed |
 
 (Phase numbers preserved from original 7-phase scaffold for stable references.)
 
