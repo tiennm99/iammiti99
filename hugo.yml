@@ -1,0 +1,31 @@
+baseURL: https://tiennm99.github.io/iammiti99/
+languageCode: en
+title: Tien — links
+theme: bonsai
+
+# Single-page bio — disable everything Hugo doesn't need.
+disableKinds:
+  - taxonomy
+  - term
+  - RSS
+  - sitemap
+  - "404"
+
+params:
+  name: "@miti99"
+  tagline: Engineer building things on the web.
+  bio: Tien Nguyen Minh — engineer, builder, writer.
+  avatar: /images/avatar.jpg
+  themeToggle: false
+  footerText: Thanks for stopping by. © 2026 Tien Nguyen Minh
+
+  links:
+    - title: GitHub
+      url: https://github.com/tiennm99
+      icon: github
+    - title: iammiti99
+      url: https://github.com/tiennm99/iammiti99
+      icon: link
+    - title: Email
+      url: mailto:minhtienit99@gmail.com
+      icon: mail

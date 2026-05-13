@@ -6,7 +6,7 @@ alternative for my own use.
 
 ## How it works
 
-Edit [`hugo.toml`](hugo.toml) (`[params]` block) → push to `main` → GitHub
+Edit [`hugo.yml`](hugo.yml) (`params:` block) → push to `main` → GitHub
 Actions builds with Hugo + bonsai → output deploys to GitHub Pages.
 
 ## Local development
@@ -32,7 +32,7 @@ domain — Hugo will copy it through to the deployed site.
 ## Project layout
 
 ```
-hugo.toml                # site content — edit [params] here
+hugo.yml                 # site content — edit params here
 content/_index.md        # placeholder so Hugo renders the index
 static/images/           # avatar etc.
 themes/bonsai/           # bonsai theme (git submodule)
