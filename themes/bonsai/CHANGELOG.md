@@ -4,9 +4,44 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ## [Unreleased]
 
-### Deferred to v0.5
-- **Auto-generated OG images** (#7) — moved again from v0.4 because no candidate path meets the ≤ 30 KB binary budget. Needs measured prototype before committing.
-- **Multi-section bio** (#9) — schema design call deferred per the issue's own "2026-Q3 candidate" recommendation.
+## [0.5.0] — 2026-05-15
+
+Linktree-parity + Lighthouse release. Closes #7 (auto-OG, infra-only) and #9 (multi-section bio). All additions are strictly opt-in or transparent; v0.4 sites upgrade with no config edits.
+
+### Added
+- **Multi-section bio** (#9) — opt-in `[[params.sections]]` with `title`, `description`, per-section `layout` override, and `[[sections.links]]`. Flat `[[params.links]]` still works (sections win + Hugo `warnf` on collision). Schema-person `sameAs` and RSS feed flatten across sections.
+- **Per-link enhancements** — five new optional fields: `image` (thumbnail), `featured` (accent-bordered emphasis), `startDate`/`endDate` (build-time visibility window), `rel` (appended to safe `noopener noreferrer` baseline), `note` (small caption under title).
+- **Share button** — `params.share = true` renders a `<button class="bio__share">` using `navigator.share` with `navigator.clipboard.writeText` fallback + ARIA-live toast. ~700 B JS loaded `defer` only when opted in.
+- **QR code block** — `params.qr = true` renders a `<details>` collapsible with a build-time-generated QR PNG of `Permalink` via Hugo's built-in `images.QR` (Hugo ≥ 0.140).
+- **vCard download** — `params.vcard = true` serves `/vcard.vcf` and renders a "Save contact" link. Requires registering the `VCard` output format in `hugo.toml` (see exampleSite).
+- **Opt-in GA4 click analytics** — `[params.analytics]` block with `measurementId`, `trackClicks`, `utmSource`, `utmMedium`, `utmCampaign`. Auto-emits `data-analytics-event="link:<slug>"` per link and injects UTM query strings into external link hrefs at build time. **GA4 cookies require GDPR/PECR/CPRA consent** — see `docs/deployment-guide.md`.
+- **Hugo image pipeline** — avatar now emits `<picture>` with AVIF + WebP + JPEG variants at 1x + 2x densities when `params.avatar` resolves as a local resource. External-URL and SVG-initials branches unchanged.
+- **Fingerprinted + SRI-protected assets** — `bonsai.css`, `gallery.css`, `theme-toggle.js`, `share.js` now ship via `resources.Get | resources.Minify | resources.Fingerprint "sha384"` with `integrity=` + `crossorigin="anonymous"` attributes. Enables 1-year `Cache-Control: immutable` headers.
+- **Auto-OG image (infra-only)** (#7) — `params.ogAuto = true` with `ogAutoBase` + `ogAutoFont` triggers a build-time `images.Filter`/`images.Text` overlay of `name` + `tagline` on a user-supplied base PNG. Theme ships template logic only — no vendored font or base PNG (30 KB binary-budget gate per validation session 1).
+- **WebSite JSON-LD** — opt-in `params.schemaWebSite = true` emits a second `<script type="application/ld+json">` of `@type: WebSite` alongside existing Person schema.
+- **Web manifest** — opt-in `params.manifest = true` registers a `Manifest` Hugo output format and emits `<link rel="manifest">`. Derives `name`/`theme_color`/`background_color`/icons from existing params.
+- **Skip-link** — first child of `<body>` for keyboard navigation. Hidden off-screen until focused.
+- **`<meta>` hardening** — `<link rel="canonical">`, `<meta property="og:url">`, `<meta name="robots">` (default `index,follow`), opt-in `<meta name="theme-color">`. Optional avatar `<link rel="preload">` for local-path avatars.
+- **Avatar `<img>` attributes** — `width="112" height="112" fetchpriority="high" decoding="async"` for CLS prevention + LCP prioritization.
+- **Tap-target enforcement** — `.bio__links--inline .link` now ≥ 48×48 px with ≥ 8 px gap per Lighthouse SEO / WCAG 2.5.5.
+- **Hreflang alternates** — emitted automatically when site has > 1 language configured.
+- **Deploy templates** — `exampleSite/static/_headers` (Netlify / Cloudflare Pages) + `exampleSite/vercel.json` with CSP, security headers, and 1-year `Cache-Control: immutable` on hashed assets.
+- **`docs/deployment-guide.md`** — 4-host coverage (Netlify, Cloudflare Pages, Vercel, GitHub Pages + Cloudflare Worker overlay) with rationale per security header and GA4 consent guidance.
+- **`docs/system-architecture.md`** + **`docs/code-standards.md`** — formal contributor docs.
+- **`.github/workflows/lighthouse-ci.yml` + `.lighthouserc.json`** — Lighthouse CI gating. Thresholds **≥ 0.90 across all 4 categories** — tightened from the user's "≥ 80" brief during validation session 1.
+- **7 new i18n keys** — `skip_to_content`, `share_label`, `share_copied`, `share_failed`, `show_qr`, `qr_alt`, `save_contact`. Both `en` and `vi` bundles updated.
+
+### Changed
+- **Min Hugo version: `0.140.0`** (was `0.128.0`). Required for `images.QR` and modern AVIF processing.
+- **CSS + JS file location**: `static/css/*.css` → `assets/css/*.css`, `static/js/*.js` → `assets/js/*.js`. Required for the new resource pipeline. End-users see no change — Hugo serves fingerprinted output at `/css/*.{hash}.css`.
+- **Sections/links collision** — when both `params.sections` and `params.links` are set, sections render and a `warnf` nudges the user.
+- **OG image cascade** — order is now: `ogImage=false` → suppress · `ogImageUrl` → explicit · `ogAuto` + assets → auto-generated · `avatar` → fallback.
+
+### Removed
+- None. All changes additive or backward-compatible.
+
+### Deferred
+- None. v0.4's deferred items (#7 auto-OG, #9 multi-section) both shipped.
 
 ## [0.4.0] — 2026-05-10
 
