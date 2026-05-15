@@ -1,5 +1,6 @@
 {{ define "head_extra" }}
-<link rel="stylesheet" href="{{ `css/gallery.css` | relURL }}" />
+{{- $g := resources.Get "css/gallery.css" | resources.Minify | resources.Fingerprint "sha384" -}}
+<link rel="stylesheet" href="{{ $g.RelPermalink }}" integrity="{{ $g.Data.Integrity }}" crossorigin="anonymous" />
 {{ end }}
 
 {{ define "main" }}
