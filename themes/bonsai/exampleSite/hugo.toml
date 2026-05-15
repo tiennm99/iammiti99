@@ -7,6 +7,29 @@ theme = "bonsai"
 # v0.4 demo (set params.rss = true and remove "RSS" from disableKinds).
 disableKinds = ["taxonomy", "term", "sitemap", "404"]
 
+# Register VCard + Manifest output formats so layouts/_default/vcard.vcf and
+# layouts/_default/manifest.webmanifest get rendered when their params are on.
+[mediaTypes."text/vcard"]
+  suffixes = ["vcf"]
+
+[mediaTypes."application/manifest+json"]
+  suffixes = ["webmanifest"]
+
+[outputs]
+  home = ["HTML", "RSS", "Manifest"]
+
+[outputFormats.VCard]
+  mediaType      = "text/vcard"
+  baseName       = "vcard"
+  isPlainText    = true
+  notAlternative = true
+
+[outputFormats.Manifest]
+  mediaType      = "application/manifest+json"
+  baseName       = "manifest"
+  isPlainText    = true
+  notAlternative = true
+
 [params]
   name = "Tien Nguyen"
   tagline = "Software engineer · tending small things with care"
@@ -20,6 +43,40 @@ disableKinds = ["taxonomy", "term", "sitemap", "404"]
   jobTitle = "Software Engineer"
   footerText = "© 2026 · made with bonsai"
   # ogImageUrl = "/og.png"   # optional 1200×630 image for social previews
+
+  # Phase 1 (v0.5) opt-ins:
+  themeColor    = "#c93f63"  # matches the sakura palette accent; tints mobile browser chrome
+  # robots      = "index,follow"  # default; set "noindex,nofollow" to hide from search engines
+  # preloadAvatar = true     # default true; preloads params.avatar as LCP image (local paths only)
+
+  # Phase 6 (v0.5) opt-ins:
+  schemaWebSite = true       # emit secondary WebSite JSON-LD for richer search results
+  manifest      = true       # serve /manifest.webmanifest + emit <link rel="manifest">
+  # themeBackground = "#fff5f5"  # PWA splash background; defaults to a sensible neutral
+
+  # Phase 3 (v0.5) page-level opt-ins:
+  share         = true       # render share button (Web Share API + clipboard fallback)
+  qr            = true       # render collapsible QR code of this page Permalink
+  # vcard       = true       # serve /vcard.vcf and render a "Save contact" link
+
+  # Phase 4 (v0.5) opt-in click analytics — Google Analytics 4.
+  # GA4 sets cookies — GDPR/PECR/CPRA consent is the site operator's responsibility.
+  # See docs/deployment-guide.md for the consent caveat.
+  # [params.analytics]
+  #   measurementId = "G-XXXXXXXXXX"
+  #   trackClicks   = true   # auto-emit data-analytics-event="link:<slug>" per link
+  #   utmSource     = "bio"
+  #   utmMedium     = "bio"
+  #   # utmCampaign = "summer-launch"
+
+# Register VCard output format on home page (only needed when vcard = true)
+# [outputs]
+#   home = ["HTML", "RSS", "VCard"]
+# [outputFormats.VCard]
+#   mediaType    = "text/vcard"
+#   baseName     = "vcard"
+#   isPlainText  = true
+#   notAlternative = true
 
   [[params.links]]
     title = "GitHub"
