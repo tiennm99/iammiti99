@@ -77,7 +77,9 @@
 {{- with site.Params.faviconSvg }}
 <link rel="icon" type="image/svg+xml" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
 {{- end }}
-<link rel="icon" href="{{ (site.Params.favicon | default `favicon.ico`) | strings.TrimPrefix "/" | relURL }}" />
+{{- with site.Params.favicon }}
+<link rel="icon" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
+{{- end }}
 {{- with site.Params.appleTouchIcon }}
 <link rel="apple-touch-icon" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
 {{- end }}

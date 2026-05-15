@@ -46,6 +46,7 @@ disableKinds = ["taxonomy", "term", "sitemap", "404"]
 
   # Phase 1 (v0.5) opt-ins:
   themeColor    = "#c93f63"  # matches the sakura palette accent; tints mobile browser chrome
+  favicon       = "/favicon.ico"  # opt-in in v0.5 — set to avoid console 404 on /favicon.ico request
   # robots      = "index,follow"  # default; set "noindex,nofollow" to hide from search engines
   # preloadAvatar = true     # default true; preloads params.avatar as LCP image (local paths only)
 
