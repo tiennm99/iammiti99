@@ -1,13 +1,43 @@
 {{- /* Render bio avatar.
-       If params.avatar is set, render <img>.
-       Otherwise, render an inline SVG circle with initials in accent color.
-       Initials override: params.avatarInitials.
-       Background override: params.avatarBg (defaults to --bonsai-accent). */ -}}
+       - If params.avatar resolves as a local asset (assets/ or static/ path),
+         emit <picture> with AVIF + WebP + JPEG fallback at 1x/2x densities.
+       - If params.avatar is an absolute URL, emit plain <img> (no processing).
+       - If unset, emit inline SVG circle with initials in accent color.
+       Initials override: params.avatarInitials. Background: params.avatarBg. */ -}}
 {{- $name := site.Params.name | default site.Title -}}
 {{- $avatar := site.Params.avatar -}}
 
 {{- if $avatar -}}
-  <img class="bio__avatar" src="{{ $avatar | strings.TrimPrefix "/" | relURL }}" alt="{{ $name }}" loading="eager" />
+  {{- $isHTTP := strings.HasPrefix $avatar "http" -}}
+  {{- $local := false -}}
+  {{- $res := "" -}}
+  {{- if not $isHTTP -}}
+    {{- $clean := strings.TrimPrefix $avatar "/" -}}
+    {{- with resources.Get $clean -}}
+      {{- $res = . -}}
+      {{- $local = true -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $local -}}
+    {{- /* Hugo image pipeline: AVIF + WebP + JPEG, 1x + 2x for retina. */ -}}
+    {{- $jpg1 := $res.Process "resize 112x112 jpg q85" -}}
+    {{- $jpg2 := $res.Process "resize 224x224 jpg q85" -}}
+    {{- $webp1 := $res.Process "resize 112x112 webp q75" -}}
+    {{- $webp2 := $res.Process "resize 224x224 webp q75" -}}
+    {{- $avif1 := $res.Process "resize 112x112 avif q60" -}}
+    {{- $avif2 := $res.Process "resize 224x224 avif q60" -}}
+    <picture>
+      <source type="image/avif" srcset="{{ $avif1.RelPermalink }} 1x, {{ $avif2.RelPermalink }} 2x" />
+      <source type="image/webp" srcset="{{ $webp1.RelPermalink }} 1x, {{ $webp2.RelPermalink }} 2x" />
+      <img class="bio__avatar" src="{{ $jpg1.RelPermalink }}"
+           srcset="{{ $jpg1.RelPermalink }} 1x, {{ $jpg2.RelPermalink }} 2x"
+           width="112" height="112" alt="{{ $name }}"
+           loading="eager" fetchpriority="high" decoding="async" />
+    </picture>
+  {{- else -}}
+    <img class="bio__avatar" src="{{ $avatar | strings.TrimPrefix "/" | relURL }}" alt="{{ $name }}"
+         width="112" height="112" loading="eager" fetchpriority="high" decoding="async" />
+  {{- end -}}
 {{- else -}}
   {{- $initials := site.Params.avatarInitials -}}
   {{- if not $initials -}}
@@ -20,8 +50,6 @@
     {{- if not $initials -}}{{- $initials = "?" -}}{{- end -}}
   {{- end -}}
   {{- $bg := site.Params.avatarBg | default "var(--bonsai-accent)" -}}
-  {{- /* Background may be a CSS var or any color value; mark as safeCSS so Hugo
-         doesn't escape var(...) into ZgotmplZ when injecting into the style attribute. */ -}}
   {{- $svgStyle := printf "color:var(--bonsai-bg);background:transparent" | safeCSS -}}
   {{- $circleStyle := printf "fill:%s" $bg | safeCSS -}}
   <svg class="bio__avatar bio__avatar--initials" viewBox="0 0 112 112" width="112" height="112"
