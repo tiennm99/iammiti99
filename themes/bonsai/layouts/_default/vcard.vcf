@@ -1,0 +1,22 @@
+{{- $name := site.Params.name | default site.Title -}}
+{{- /* Flatten links + sections for URL lines. */ -}}
+{{- $allLinks := slice -}}
+{{- if site.Params.sections -}}
+  {{- range site.Params.sections -}}{{- range .links -}}{{- $allLinks = $allLinks | append . -}}{{- end -}}{{- end -}}
+{{- else -}}{{- $allLinks = site.Params.links -}}{{- end -}}
+BEGIN:VCARD
+VERSION:3.0
+FN:{{ $name }}
+{{ with site.Params.jobTitle }}TITLE:{{ . }}
+{{ end -}}
+{{ with site.Params.email }}EMAIL:{{ . }}
+{{ end -}}
+{{ with site.Params.location }}ADR:;;{{ . }};;;;
+{{ end -}}
+URL:{{ site.BaseURL }}
+{{ range $allLinks -}}
+{{- if and .url (not (or (strings.HasPrefix .url "mailto:") (strings.HasPrefix .url "tel:"))) -}}
+URL;TYPE={{ .title | upper }}:{{ .url }}
+{{ end -}}
+{{- end -}}
+END:VCARD

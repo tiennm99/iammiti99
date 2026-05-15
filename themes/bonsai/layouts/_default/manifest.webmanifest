@@ -1,0 +1,31 @@
+{{- $name := site.Params.name | default site.Title -}}
+{{- $shortName := site.Params.shortName | default (substr $name 0 12) -}}
+{{- $themeColor := site.Params.themeColor | default "#8b3a2b" -}}
+{{- $bgColor := site.Params.themeBackground | default "#f4efe6" -}}
+{{- /* start_url and scope use relURL so subpath deployments (e.g. GitHub Pages
+       project sites at /repo/) install correctly. */ -}}
+{{- $root := "/" | relURL -}}
+{{- $hasIcons := or site.Params.appleTouchIcon site.Params.faviconSvg -}}
+{
+  "name": "{{ $name }}",
+  "short_name": "{{ $shortName }}",
+  "start_url": "{{ $root }}",
+  "scope": "{{ $root }}",
+  "display": "minimal-ui",
+  "background_color": "{{ $bgColor }}",
+  "theme_color": "{{ $themeColor }}"
+  {{- if $hasIcons -}}
+  ,
+  "icons": [
+    {{- $first := true -}}
+    {{- with site.Params.appleTouchIcon -}}
+      {{- if $first }}{{ $first = false }}{{ else }},{{ end }}
+      { "src": "{{ . | relURL }}", "sizes": "180x180", "type": "image/png" }
+    {{- end -}}
+    {{- with site.Params.faviconSvg -}}
+      {{- if $first }}{{ $first = false }}{{ else }},{{ end }}
+      { "src": "{{ . | relURL }}", "sizes": "any", "type": "image/svg+xml" }
+    {{- end -}}
+  ]
+  {{- end }}
+}

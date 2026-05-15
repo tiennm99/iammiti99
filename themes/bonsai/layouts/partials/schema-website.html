@@ -1,0 +1,14 @@
+{{- /* Optional WebSite JSON-LD for rich-snippet eligibility.
+       Off by default — opt in via params.schemaWebSite = true. */ -}}
+{{- if site.Params.schemaWebSite -}}
+{{- $name := site.Params.name | default site.Title -}}
+{{- $payload := dict
+  "@context" "https://schema.org"
+  "@type"    "WebSite"
+  "name"     $name
+  "url"      site.BaseURL
+  "inLanguage" (site.Language.LanguageCode | default site.LanguageCode | default "en")
+-}}
+{{- with site.Params.bio -}}{{- $payload = merge $payload (dict "description" .) -}}{{- end -}}
+<script type="application/ld+json">{{ $payload | jsonify | safeJS }}</script>
+{{- end -}}
