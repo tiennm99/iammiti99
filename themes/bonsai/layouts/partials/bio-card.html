@@ -2,11 +2,11 @@
 {{- $tagline := site.Params.tagline -}}
 {{- $bio := site.Params.bio -}}
 {{- $links := site.Params.links -}}
+{{- $sections := site.Params.sections -}}
 {{- $layout := site.Params.layout | default "stack" -}}
-{{- $validLayouts := slice "stack" "grid" "inline" -}}
-{{- if not (in $validLayouts $layout) -}}
-  {{- warnf "bonsai: unknown params.layout %q (expected stack|grid|inline), falling back to 'stack'" $layout -}}
-  {{- $layout = "stack" -}}
+{{- $defaultLabel := i18n "nav_links_label" | default "Links" -}}
+{{- if and $sections $links -}}
+  {{- warnf "bonsai: both params.sections and params.links set; sections win, flat links ignored" -}}
 {{- end -}}
 
 <article class="bio">
@@ -22,11 +22,37 @@
   <p class="bio__text">{{ . | markdownify }}</p>
   {{- end }}
 
-  {{- if $links }}
-  <nav class="bio__links bio__links--{{ $layout }}" aria-label="{{ i18n "nav_links_label" | default "Links" }}">
-    {{- range $links }}
-      {{- partial "link-button.html" . -}}
-    {{- end }}
-  </nav>
+  {{- if $sections -}}
+    {{- range $i, $section := $sections -}}
+      {{- $secLinks := $section.links -}}
+      {{- if $secLinks -}}
+        {{- $secLayout := $section.layout | default $layout -}}
+        {{- $secTitle := $section.title -}}
+        {{- $slug := "" -}}
+        {{- with $secTitle }}{{ $slug = . | urlize }}{{ end -}}
+        {{- if not $slug }}{{ $slug = printf "section-%d" (add $i 1) }}{{ end -}}
+        <section class="bio__section"{{ with $secTitle }} aria-labelledby="section-{{ $slug }}"{{ else }} aria-label="{{ $defaultLabel }} {{ add $i 1 }}"{{ end }}>
+          {{- with $secTitle }}
+          <h2 id="section-{{ $slug }}" class="bio__section-title">{{ . }}</h2>
+          {{- end }}
+          {{- with $section.description }}
+          <p class="bio__section-desc">{{ . | markdownify }}</p>
+          {{- end }}
+          {{ partial "link-group.html" (dict "links" $secLinks "layout" $secLayout "label" (or $secTitle $defaultLabel)) }}
+        </section>
+      {{- end -}}
+    {{- end -}}
+  {{- else if $links -}}
+    {{ partial "link-group.html" (dict "links" $links "layout" $layout "label" $defaultLabel) }}
+  {{- end -}}
+
+  {{- if site.Params.share }}
+  {{ partial "share-button.html" . }}
   {{- end }}
+
+  {{- if site.Params.vcard }}
+  <a class="bio__vcard" href="{{ `vcard.vcf` | relURL }}" download>{{ i18n "save_contact" | default "Save contact" }}</a>
+  {{- end }}
+
+  {{ partial "qr-block.html" . }}
 </article>

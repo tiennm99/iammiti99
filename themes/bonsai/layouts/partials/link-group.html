@@ -1,0 +1,21 @@
+{{- /* Render a navigation block of links.
+       Context dict: { "links": [...], "layout": "stack|grid|inline", "label": "..." }
+       Used both by the flat-list rendering and per-section rendering. */ -}}
+{{- $links := .links -}}
+{{- $layout := .layout | default "stack" -}}
+{{- $label := .label | default (i18n "nav_links_label" | default "Links") -}}
+{{- $validLayouts := slice "stack" "grid" "inline" -}}
+{{- if not (in $validLayouts $layout) -}}
+  {{- warnf "bonsai: unknown layout %q (expected stack|grid|inline), falling back to 'stack'" $layout -}}
+  {{- $layout = "stack" -}}
+{{- end -}}
+{{- /* Resolve analytics once and pass into each link-button so the partial reads
+       only its dict argument (per docs/code-standards.md partial composition rule). */ -}}
+{{- $analytics := site.Params.analytics -}}
+{{- if $links -}}
+<nav class="bio__links bio__links--{{ $layout }}" aria-label="{{ $label }}">
+  {{- range $links }}
+    {{- partial "link-button.html" (dict "link" . "analytics" $analytics) -}}
+  {{- end }}
+</nav>
+{{- end -}}

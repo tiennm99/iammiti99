@@ -1,12 +1,56 @@
-{{- $title := .title -}}
-{{- $url := .url -}}
-{{- $icon := .icon -}}
+{{- /* Render one link button.
+       Context dict: { "link": {title,url,icon,image,featured,startDate,endDate,rel,note,...}, "analytics": params.analytics }
+       Reads ONLY from its dict argument (per docs/code-standards.md partial composition rule). */ -}}
+{{- $l := .link -}}
+{{- $a := .analytics -}}
+{{- /* Per-link visibility window: skip rendering when now < startDate or now > endDate.
+       Build-time evaluation only — re-evaluated at next site rebuild. */ -}}
+{{- $now := now -}}
+{{- $startOk := true -}}
+{{- $endOk := true -}}
+{{- with $l.startDate }}{{ $startOk = ge $now (time .) }}{{ end -}}
+{{- with $l.endDate }}{{ $endOk = le $now (time .) }}{{ end -}}
+{{- if and $startOk $endOk -}}
+{{- $title := $l.title -}}
+{{- $url := $l.url -}}
+{{- $icon := $l.icon -}}
+{{- $image := $l.image -}}
+{{- $note := $l.note -}}
 {{- $external := strings.HasPrefix $url "http" -}}
-<a class="link"
+{{- /* Class composition: .link + optional .link--featured */ -}}
+{{- $classes := "link" -}}
+{{- if $l.featured }}{{ $classes = printf "%s link--featured" $classes }}{{ end -}}
+{{- /* rel value for external links: always start with safe defaults, then append user rel */ -}}
+{{- $rel := "noopener noreferrer" -}}
+{{- with $l.rel }}{{ $rel = printf "%s %s" $rel . }}{{ end -}}
+{{- /* GA4 click-tracking attr: emit only when analytics enabled (caller passes the resolved dict). */ -}}
+{{- $trackClicks := and $a $a.measurementId (ne ($a.trackClicks | default true) false) -}}
+{{- /* UTM injection at build time for external links. Splits #fragment first so the
+       query string lands BEFORE the fragment (preserving link semantics). */ -}}
+{{- if and $external $a $a.utmSource -}}
+  {{- $fragment := "" -}}
+  {{- if strings.Contains $url "#" -}}
+    {{- $bits := split $url "#" -}}
+    {{- $url = index $bits 0 -}}
+    {{- $fragment = printf "#%s" (index $bits 1) -}}
+  {{- end -}}
+  {{- $sep := cond (strings.Contains $url "?") "&" "?" -}}
+  {{- $utm := printf "utm_source=%s&utm_medium=%s" (urlquery $a.utmSource) (urlquery ($a.utmMedium | default "bio")) -}}
+  {{- with $a.utmCampaign }}{{ $utm = printf "%s&utm_campaign=%s" $utm (urlquery .) }}{{ end -}}
+  {{- $url = printf "%s%s%s%s" $url $sep $utm $fragment -}}
+{{- end -}}
+<a class="{{ $classes }}"
    href="{{ $url }}"
-   {{- if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>
-  {{- with $icon }}
-  <span class="link__icon" aria-hidden="true">{{ partial "icon.html" . }}</span>
+   {{- if $external }} target="_blank" rel="{{ $rel }}"{{ end -}}
+   {{- if $trackClicks }} data-analytics-event="link:{{ $l.title | urlize }}"{{ end }}>
+  {{- if $image -}}
+  <img class="link__thumb" src="{{ $image | strings.TrimPrefix "/" | relURL }}" alt="" width="24" height="24" loading="lazy" decoding="async" />
+  {{- else if $icon -}}
+  <span class="link__icon" aria-hidden="true">{{ partial "icon.html" $icon }}</span>
   {{- end }}
-  <span class="link__title">{{ $title }}</span>
+  <span class="link__title">
+    {{- $title -}}
+    {{- with $note }}<span class="link__note">{{ . }}</span>{{- end -}}
+  </span>
 </a>
+{{- end -}}
