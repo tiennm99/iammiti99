@@ -12,3 +12,24 @@ other = "Toggle theme"
 
 [footer_default]
 other = "© {{ .year }} {{ .name }}"
+
+[skip_to_content]
+other = "Skip to content"
+
+[share_label]
+other = "Share this page"
+
+[share_copied]
+other = "Link copied"
+
+[share_failed]
+other = "Could not share"
+
+[show_qr]
+other = "Show QR code"
+
+[qr_alt]
+other = "QR code linking to this page"
+
+[save_contact]
+other = "Save contact"

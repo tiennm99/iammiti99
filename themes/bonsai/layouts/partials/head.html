@@ -2,10 +2,13 @@
 {{- $tagline := site.Params.tagline | default "" -}}
 {{- $description := site.Params.bio | default $tagline | default site.Params.description -}}
 {{- $avatar := site.Params.avatar -}}
-{{- /* OG image resolution:
-       - params.ogImage = false → emit nothing.
-       - params.ogImageUrl set → use it (1200×630 expected → summary_large_image).
-       - else fall back to params.avatar (square → summary card).            */ -}}
+{{- /* OG image resolution cascade:
+       1. params.ogImage = false → emit nothing.
+       2. params.ogImageUrl set → use it (1200×630 → summary_large_image).
+       3. params.ogAuto = true AND ogAutoBase + ogAutoFont supplied → auto-generate
+          via Hugo's images.Filter + images.Text overlay at build time.
+          (Bonsai v0.5 ships infra-only; user supplies the base PNG + TTF font.)
+       4. else fall back to params.avatar (square → summary card).            */ -}}
 {{- $ogImageEnabled := site.Params.ogImage | default true -}}
 {{- $ogImageUrl := "" -}}
 {{- $twitterCard := "summary" -}}
@@ -13,6 +16,22 @@
   {{- if site.Params.ogImageUrl -}}
     {{- $ogImageUrl = site.Params.ogImageUrl | absURL -}}
     {{- $twitterCard = "summary_large_image" -}}
+  {{- else if and site.Params.ogAuto site.Params.ogAutoBase site.Params.ogAutoFont -}}
+    {{- $base := resources.Get site.Params.ogAutoBase -}}
+    {{- $font := resources.Get site.Params.ogAutoFont -}}
+    {{- if and $base $font -}}
+      {{- $titleOpts := dict "size" 72 "color" "#2b2b2b" "x" 80 "y" 220 "font" $font -}}
+      {{- $generated := $base | images.Filter (images.Text $name $titleOpts) -}}
+      {{- with $tagline -}}
+        {{- $taglineOpts := dict "size" 36 "color" "#6b6b6b" "x" 80 "y" 340 "font" $font -}}
+        {{- $generated = $generated | images.Filter (images.Text . $taglineOpts) -}}
+      {{- end -}}
+      {{- $ogImageUrl = $generated.Permalink -}}
+      {{- $twitterCard = "summary_large_image" -}}
+    {{- else if $avatar -}}
+      {{- warnf "bonsai: params.ogAuto enabled but ogAutoBase/ogAutoFont resources not found; falling back to avatar" -}}
+      {{- $ogImageUrl = $avatar | absURL -}}
+    {{- end -}}
   {{- else if $avatar -}}
     {{- $ogImageUrl = $avatar | absURL -}}
   {{- end -}}
@@ -24,8 +43,24 @@
 {{- with $description }}
 <meta name="description" content="{{ . }}" />
 {{- end }}
+<link rel="canonical" href="{{ .Permalink }}" />
+<meta name="robots" content="{{ site.Params.robots | default `index,follow` }}" />
+{{- with site.Params.themeColor }}
+<meta name="theme-color" content="{{ . }}" />
+{{- end }}
+{{- /* hreflang alternates for multi-language sites only. */ -}}
+{{- if gt (len site.Languages) 1 }}
+{{- range site.Languages }}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ site.BaseURL }}{{ if not .Lang }}{{ else }}{{ .Lang }}/{{ end }}" />
+{{- end }}
+<link rel="alternate" hreflang="x-default" href="{{ site.BaseURL }}" />
+{{- end }}
+{{- if site.Params.manifest }}
+<link rel="manifest" href="{{ `manifest.webmanifest` | relURL }}" />
+{{- end }}
 
 <meta property="og:type" content="profile" />
+<meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:title" content="{{ $name }}" />
 {{- with $description }}
 <meta property="og:description" content="{{ . }}" />
@@ -37,6 +72,7 @@
 <meta name="twitter:card" content="{{ $twitterCard }}" />
 
 {{ partial "schema-person.html" . }}
+{{ partial "schema-website.html" . }}
 
 {{- with site.Params.faviconSvg }}
 <link rel="icon" type="image/svg+xml" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
@@ -45,7 +81,17 @@
 {{- with site.Params.appleTouchIcon }}
 <link rel="apple-touch-icon" href="{{ . | strings.TrimPrefix "/" | relURL }}" />
 {{- end }}
-<link rel="stylesheet" href="{{ `css/bonsai.css` | relURL }}" />
+{{- /* Avatar preload: only for `static/`-served paths. When avatar resolves as an
+       `assets/` resource the <picture> pipeline emits its own srcset/fetchpriority
+       and a fixed-path preload would be wasted (different filename + format). */ -}}
+{{- if and site.Params.avatar (ne (site.Params.preloadAvatar | default true) false) (not (strings.HasPrefix site.Params.avatar "http")) (not (resources.Get (strings.TrimPrefix site.Params.avatar "/"))) }}
+<link rel="preload" as="image" href="{{ site.Params.avatar | strings.TrimPrefix "/" | relURL }}" fetchpriority="high" />
+{{- end }}
+{{- /* Fingerprinted + minified CSS via Hugo's resource pipeline.
+       integrity= attribute lets browsers / CSP `style-src 'self' 'sha384-...'`
+       validate the file. */ -}}
+{{- $css := resources.Get "css/bonsai.css" | resources.Minify | resources.Fingerprint "sha384" }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous" />
 {{- if site.Params.rss }}
 <link rel="alternate" type="application/rss+xml" title="{{ site.Params.name | default site.Title }}" href="{{ `index.xml` | absURL }}" />
 {{- end }}
@@ -54,5 +100,11 @@
        Tiny (~140B) — meets the <3KB CSS / minimal-JS budget. */ -}}
 <script>(function(){try{var t=localStorage.getItem('bonsai-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <noscript><style>.theme-toggle{display:none!important}</style></noscript>
-<script defer src="{{ `js/theme-toggle.js` | relURL }}"></script>
+{{- $themeJs := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint "sha384" }}
+<script defer src="{{ $themeJs.RelPermalink }}" integrity="{{ $themeJs.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
+{{- if site.Params.share }}
+{{- $shareJs := resources.Get "js/share.js" | resources.Minify | resources.Fingerprint "sha384" }}
+<script defer src="{{ $shareJs.RelPermalink }}" integrity="{{ $shareJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}
+{{ partial "analytics-loader.html" . }}

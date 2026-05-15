@@ -11,3 +11,24 @@ other = "Đổi giao diện"
 
 [footer_default]
 other = "© {{ .year }} {{ .name }}"
+
+[skip_to_content]
+other = "Bỏ qua tới nội dung"
+
+[share_label]
+other = "Chia sẻ trang này"
+
+[share_copied]
+other = "Đã sao chép liên kết"
+
+[share_failed]
+other = "Không thể chia sẻ"
+
+[show_qr]
+other = "Hiện mã QR"
+
+[qr_alt]
+other = "Mã QR liên kết tới trang này"
+
+[save_contact]
+other = "Lưu danh thiếp"
