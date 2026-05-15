@@ -1,5 +1,6 @@
 {{ define "head_extra" }}
-<link rel="stylesheet" href="{{ `css/gallery.css` | relURL }}" />
+{{- $g := resources.Get "css/gallery.css" | resources.Minify | resources.Fingerprint "sha384" -}}
+<link rel="stylesheet" href="{{ $g.RelPermalink }}" integrity="{{ $g.Data.Integrity }}" crossorigin="anonymous" />
 {{ end }}
 
 {{ define "main" }}
@@ -31,7 +32,7 @@
       <code class="variants-gallery__code">layout = "{{ .name }}"</code>
       <nav class="bio__links bio__links--{{ .name }}" aria-label="{{ .label }} sample">
         {{- range $sample }}
-          {{- partial "link-button.html" . -}}
+          {{- partial "link-button.html" (dict "link" . "analytics" site.Params.analytics) -}}
         {{- end }}
       </nav>
     </article>

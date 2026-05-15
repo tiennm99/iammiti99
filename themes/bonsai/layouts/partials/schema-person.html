@@ -2,8 +2,17 @@
        Suppressed when site.Params.schema = false. */ -}}
 {{- if ne (site.Params.schema | default true) false -}}
 {{- $name := site.Params.name | default site.Title -}}
+{{- /* Flatten params.links + params.sections.*.links into a single list for sameAs. */ -}}
+{{- $allLinks := slice -}}
+{{- if site.Params.sections -}}
+  {{- range site.Params.sections -}}
+    {{- range .links -}}{{- $allLinks = $allLinks | append . -}}{{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $allLinks = site.Params.links -}}
+{{- end -}}
 {{- $sameAs := slice -}}
-{{- range site.Params.links -}}
+{{- range $allLinks -}}
   {{- with .url -}}
     {{- if not (or (strings.HasPrefix . "mailto:") (strings.HasPrefix . "tel:")) -}}
       {{- $sameAs = $sameAs | append . -}}
