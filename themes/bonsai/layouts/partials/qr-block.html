@@ -1,0 +1,15 @@
+{{- /* Render a QR code of the current page Permalink inside a collapsible <details>.
+       Gated by site.Params.qr = true. Uses Hugo's built-in images.QR (≥ 0.140).
+       The PNG is generated at build time and cached under resources/_gen/. */ -}}
+{{- if site.Params.qr -}}
+{{- $url := .Permalink -}}
+{{- $qr := images.QR $url (dict "level" "medium" "scale" 4) -}}
+{{- $showLabel := i18n "show_qr" | default "Show QR code" -}}
+{{- $alt := i18n "qr_alt" | default "QR code linking to this page" -}}
+<details class="bio__qr">
+  <summary>{{ $showLabel }}</summary>
+  <img class="bio__qr-img" src="{{ $qr.RelPermalink }}"
+       width="{{ $qr.Width }}" height="{{ $qr.Height }}"
+       alt="{{ $alt }}" loading="lazy" decoding="async" />
+</details>
+{{- end -}}

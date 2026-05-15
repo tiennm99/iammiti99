@@ -1,0 +1,19 @@
+{{- /* Render a share button. Uses navigator.share (Web Share API) when available;
+       falls back to clipboard.writeText with a small toast.
+       Loaded only when site.Params.share = true (gated by caller). */ -}}
+{{- $name := site.Params.name | default site.Title -}}
+{{- $shareLabel := i18n "share_label" | default "Share this page" -}}
+{{- $copied := i18n "share_copied" | default "Link copied" -}}
+{{- $failed := i18n "share_failed" | default "Could not share" -}}
+<button type="button"
+        class="bio__share"
+        data-bonsai-share
+        data-share-url="{{ .Permalink }}"
+        data-share-title="{{ $name }}"
+        data-toast-copied="{{ $copied }}"
+        data-toast-failed="{{ $failed }}"
+        aria-label="{{ $shareLabel }}">
+  <span class="bio__share-icon" aria-hidden="true">{{ partial "icon.html" "share" }}</span>
+  <span class="bio__share-label">{{ $shareLabel }}</span>
+</button>
+<output class="bio__share-toast" role="status" aria-live="polite" hidden></output>
