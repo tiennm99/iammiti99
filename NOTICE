@@ -10,4 +10,4 @@ You may obtain a copy of the License at
 ---
 
 This site is built with the bonsai Hugo theme
-(https://github.com/tiennm99/bonsai, Apache-2.0).
+(vendored in themes/bonsai/, Apache-2.0).
