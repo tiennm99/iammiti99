@@ -1,7 +1,7 @@
 # iammiti99
 
 Personal link-in-bio page — built with [Hugo](https://gohugo.io) and the
-[bonsai](https://github.com/tiennm99/bonsai) theme. Self-hosted Linktree
+[bonsai](themes/bonsai) theme. Self-hosted Linktree
 alternative for my own use.
 
 ## How it works
@@ -14,7 +14,6 @@ Actions builds with Hugo + bonsai → output deploys to GitHub Pages.
 Requires Hugo Extended ≥ 0.128.
 
 ```bash
-git submodule update --init --recursive
 hugo server          # http://localhost:1313
 hugo --gc --minify   # build to ./public
 ```
@@ -35,7 +34,7 @@ domain — Hugo will copy it through to the deployed site.
 hugo.yml                 # site content — edit params here
 content/_index.md        # placeholder so Hugo renders the index
 static/images/           # avatar etc.
-themes/bonsai/           # bonsai theme (git submodule)
+themes/bonsai/           # bonsai theme (in-repo, full history)
 .github/workflows/deploy.yml
 public/                  # build output (gitignored)
 ```
