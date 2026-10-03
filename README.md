@@ -28,6 +28,26 @@ General → Workflow permissions** is set to "Read and write").
 (Optional) Custom domain: drop a `static/CNAME` file containing your apex
 domain — Hugo will copy it through to the deployed site.
 
+### Base URL
+
+`hugo.yml` sets `baseURL: /`, so a plain `hugo` build serves from the domain
+root. The GitHub Pages workflow overrides it with the Pages URL
+(`https://<owner>.github.io/iammiti99/`), so only that host gets the
+`/iammiti99/` subpath.
+
+### Other hosts (Cloudflare Pages, Netlify, Vercel)
+
+| Setting | Value |
+|---|---|
+| Build command | `hugo --gc --minify` |
+| Output directory | `public` |
+| Env `HUGO_VERSION` | `0.154.0` (Hugo Extended) |
+| Env `HUGO_BASEURL` (optional) | the site's full URL, e.g. `https://iammiti99.pages.dev/` |
+
+Without `HUGO_BASEURL` the site is served from the host's root URL, but
+`og:image` and the canonical link stay relative. Set it so social link previews
+get absolute URLs.
+
 ## Project layout
 
 ```
