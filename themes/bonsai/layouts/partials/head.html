@@ -86,7 +86,7 @@
 {{- /* Avatar preload: only for `static/`-served paths. When avatar resolves as an
        `assets/` resource the <picture> pipeline emits its own srcset/fetchpriority
        and a fixed-path preload would be wasted (different filename + format). */ -}}
-{{- if and site.Params.avatar (ne (site.Params.preloadAvatar | default true) false) (not (strings.HasPrefix site.Params.avatar "http")) (not (resources.Get (strings.TrimPrefix site.Params.avatar "/"))) }}
+{{- if and site.Params.avatar (ne (site.Params.preloadAvatar | default true) false) (not (strings.HasPrefix site.Params.avatar "http")) (not (resources.Get (strings.TrimPrefix "/" site.Params.avatar))) }}
 <link rel="preload" as="image" href="{{ site.Params.avatar | strings.TrimPrefix "/" | relURL }}" fetchpriority="high" />
 {{- end }}
 {{- /* Fingerprinted + minified CSS via Hugo's resource pipeline.

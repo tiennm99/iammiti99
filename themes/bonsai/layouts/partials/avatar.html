@@ -12,7 +12,7 @@
   {{- $local := false -}}
   {{- $res := "" -}}
   {{- if not $isHTTP -}}
-    {{- $clean := strings.TrimPrefix $avatar "/" -}}
+    {{- $clean := strings.TrimPrefix "/" $avatar -}}
     {{- with resources.Get $clean -}}
       {{- $res = . -}}
       {{- $local = true -}}
