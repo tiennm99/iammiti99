@@ -14,7 +14,7 @@
 {{- $twitterCard := "summary" -}}
 {{- if $ogImageEnabled -}}
   {{- if site.Params.ogImageUrl -}}
-    {{- $ogImageUrl = site.Params.ogImageUrl | absURL -}}
+    {{- $ogImageUrl = site.Params.ogImageUrl | strings.TrimPrefix "/" | absURL -}}
     {{- $twitterCard = "summary_large_image" -}}
   {{- else if and site.Params.ogAuto site.Params.ogAutoBase site.Params.ogAutoFont -}}
     {{- $base := resources.Get site.Params.ogAutoBase -}}
@@ -30,10 +30,10 @@
       {{- $twitterCard = "summary_large_image" -}}
     {{- else if $avatar -}}
       {{- warnf "bonsai: params.ogAuto enabled but ogAutoBase/ogAutoFont resources not found; falling back to avatar" -}}
-      {{- $ogImageUrl = $avatar | absURL -}}
+      {{- $ogImageUrl = $avatar | strings.TrimPrefix "/" | absURL -}}
     {{- end -}}
   {{- else if $avatar -}}
-    {{- $ogImageUrl = $avatar | absURL -}}
+    {{- $ogImageUrl = $avatar | strings.TrimPrefix "/" | absURL -}}
   {{- end -}}
 {{- end -}}
 <meta charset="utf-8" />
