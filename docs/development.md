@@ -18,8 +18,8 @@ Do not edit the root `README.md` by hand: the next build overwrites it.
 
 ## Local development
 
-Requires Hugo Extended ≥ 0.140 and Go, which Hugo uses to fetch the theme
-module.
+Requires Hugo ≥ 0.154.5 (the version in Ubuntu 26.04 LTS) and Go, which Hugo
+uses to fetch the theme module.
 
 ```bash
 hugo server          # http://localhost:1313
@@ -62,7 +62,7 @@ from the domain root. The Pages workflow overrides it with the Pages URL
 |---|---|
 | Build command | `hugo --gc --minify` |
 | Output directory | `public` |
-| Env `HUGO_VERSION` | `0.154.0` (Hugo Extended) |
+| Env `HUGO_VERSION` | `0.154.5` or newer |
 | Go | needed to fetch the theme module; set the host's Go version env if its image lacks Go |
 | Env `HUGO_BASEURL` (optional) | the site's full URL, e.g. `https://<project>.pages.dev/` |
 
