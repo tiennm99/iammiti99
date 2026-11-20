@@ -19,9 +19,9 @@ disablePathToLower: true
 # Render the profile twice: the page, and README.md (served at /README.md and
 # copied to the repo root by CI).
 outputs:
-  home: [html, Markdown]
+  home: [html, markdown]
 outputFormats:
-  Markdown:
+  markdown:
     mediaType: text/markdown
     baseName: README
     isPlainText: true
