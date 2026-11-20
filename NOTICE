@@ -9,5 +9,5 @@ You may obtain a copy of the License at
 
 ---
 
-This site is built with the bonsai Hugo theme
-(vendored in themes/bonsai/, Apache-2.0).
+This site is built with the banyan Hugo theme
+(https://github.com/tiennm99/banyan, imported as a Hugo module, Apache-2.0).

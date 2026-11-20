@@ -1,7 +1,9 @@
 baseURL: /
 languageCode: en
 title: Tien — links
-theme: bonsai
+module:
+  imports:
+    - path: github.com/tiennm99/banyan
 
 # Single-page bio — disable everything Hugo doesn't need.
 disableKinds:

@@ -1,17 +1,17 @@
 # iammiti99
 
 Personal link-in-bio page — built with [Hugo](https://gohugo.io) and the
-[bonsai](themes/bonsai) theme. Self-hosted Linktree
+[banyan](https://github.com/tiennm99/banyan) theme. Self-hosted Linktree
 alternative for my own use.
 
 ## How it works
 
 Edit [`hugo.yml`](hugo.yml) (`params:` block) → push to `main` → GitHub
-Actions builds with Hugo + bonsai → output deploys to GitHub Pages.
+Actions builds with Hugo + banyan → output deploys to GitHub Pages.
 
 ## Local development
 
-Requires Hugo Extended ≥ 0.128.
+Requires Hugo Extended ≥ 0.140 and Go, which Hugo uses to fetch the theme module.
 
 ```bash
 hugo server          # http://localhost:1313
@@ -42,6 +42,7 @@ root. The GitHub Pages workflow overrides it with the Pages URL
 | Build command | `hugo --gc --minify` |
 | Output directory | `public` |
 | Env `HUGO_VERSION` | `0.154.0` (Hugo Extended) |
+| Go | needed to fetch the theme module; set the host's Go version env if its image lacks Go |
 | Env `HUGO_BASEURL` (optional) | the site's full URL, e.g. `https://iammiti99.pages.dev/` |
 
 Without `HUGO_BASEURL` the site is served from the host's root URL, but
@@ -54,7 +55,7 @@ get absolute URLs.
 hugo.yml                 # site content — edit params here
 content/_index.md        # placeholder so Hugo renders the index
 static/images/           # avatar etc.
-themes/bonsai/           # bonsai theme (in-repo, full history)
+go.mod, go.sum           # Hugo module: pins the banyan theme version
 .github/workflows/deploy.yml
 public/                  # build output (gitignored)
 ```
