@@ -1,0 +1,27 @@
+baseURL: /
+languageCode: en
+title: Tien — links
+module:
+  imports:
+    - path: github.com/tiennm99/banyan
+
+# Single-page bio — disable everything Hugo doesn't need.
+disableKinds:
+  - taxonomy
+  - term
+  - RSS
+  - sitemap
+  - "404"
+
+# Keep the capital letters of README.md.
+disablePathToLower: true
+
+# Render the profile twice: the page, and README.md (served at /README.md and
+# copied to the repo root by CI).
+outputs:
+  home: [html, Markdown]
+outputFormats:
+  Markdown:
+    mediaType: text/markdown
+    baseName: README
+    isPlainText: true

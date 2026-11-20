@@ -1,6 +1,6 @@
 # Plan: one YAML file renders the site and a Markdown README
 
-**Status:** in progress (phase 0 done)
+**Status:** done
 **Date:** 2026-11-20
 **Stack:** Hugo Extended 0.154, the banyan theme as a Hugo module, GitHub Pages
 
@@ -42,8 +42,8 @@ avatar, links and sections. A single `hugo` build renders it into:
 | # | Phase | Status | File |
 | --- | --- | --- | --- |
 | 0 | Split the theme into its own repo, `tiennm99/banyan` | done | [phase-00-split-theme-into-banyan-repo.md](phase-00-split-theme-into-banyan-repo.md) |
-| 1 | Split params into their own file and add the Markdown output | pending | [phase-01-params-file-and-markdown-output.md](phase-01-params-file-and-markdown-output.md) |
-| 2 | CI README sync and docs move | pending | [phase-02-ci-readme-sync-and-docs.md](phase-02-ci-readme-sync-and-docs.md) |
+| 1 | Split params into their own file and add the Markdown output | done | [phase-01-params-file-and-markdown-output.md](phase-01-params-file-and-markdown-output.md) |
+| 2 | CI README sync and docs move | done | [phase-02-ci-readme-sync-and-docs.md](phase-02-ci-readme-sync-and-docs.md) |
 
 ## Acceptance criteria
 
