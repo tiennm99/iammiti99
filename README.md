@@ -12,7 +12,7 @@ Tien Nguyen Minh — engineer, builder, writer.
 
 ---
 
-Thanks for stopping by. © 2026 Tien Nguyen Minh · [Web version](https://tiennm99.github.io/iammiti99/)
+Thanks for stopping by. © 2026 <a href="https://miti99.com">miti99</a> · [Web version](https://tiennm99.github.io/iammiti99/)
 
 This README is generated from
 [`config/_default/params.yml`](https://github.com/tiennm99/iammiti99/blob/main/config/_default/params.yml);
